@@ -49,6 +49,7 @@ const theme = createTheme({
           minWidth: "unset",
           textTransform: "capitalize",
           variants: [
+            // Size variants
             {
               props: { size: "small" },
               style: {
@@ -70,107 +71,75 @@ const theme = createTheme({
                 lineHeight: "24px",
               },
             },
-            // Adjust padding for outlined buttons to compensate for border
-            {
-              props: { variant: "outlined", size: "small" },
-              style: {
-                padding: "3px 12px",
-                lineHeight: "20px",
-              },
-            },
-            {
-              props: { variant: "outlined", size: "medium" },
-              style: {
-                padding: "7px 16px",
-                lineHeight: "20px",
-              },
-            },
-            {
-              props: { variant: "outlined", size: "large" },
-              style: {
-                padding: "11px 24px",
-                lineHeight: "24px",
-              },
-            },
-            // Subtle border color for outlined primary buttons
-            {
-              props: { variant: "outlined", color: "primary" },
-              style: {
-                borderColor: `color-mix(in srgb, ${theme.vars.palette.primary.main} 28%, transparent)`,
-              },
-            },
+            // Outlined border compensation for all sizes
             {
               props: { variant: "outlined" },
               style: {
+                "&.MuiButton-sizeSmall": {
+                  padding: "3px 12px",
+                },
+                "&.MuiButton-sizeMedium": {
+                  padding: "7px 16px",
+                },
+                "&.MuiButton-sizeLarge": {
+                  padding: "11px 24px",
+                },
                 "& .MuiTouchRipple-root": {
                   inset: "-1px",
                 },
               },
             },
-            // Use text token for non-contained buttons
+            // Text variant uses custom text colors
             {
-              props: { variant: "text", color: "secondary" },
+              props: { variant: "text" },
               style: {
-                color: theme.vars.palette.secondary.text,
+                "&.MuiButton-colorSecondary": {
+                  "--variant-textColor": theme.vars.palette.secondary.text,
+                },
+                "&.MuiButton-colorSuccess": {
+                  "--variant-textColor": theme.vars.palette.success.text,
+                },
+                "&.MuiButton-colorError": {
+                  "--variant-textColor": theme.vars.palette.error.text,
+                },
+                "&.MuiButton-colorWarning": {
+                  "--variant-textColor": theme.vars.palette.warning.text,
+                },
+                "&.MuiButton-colorInfo": {
+                  "--variant-textColor": theme.vars.palette.info.text,
+                },
+                color: "var(--variant-textColor)",
               },
             },
+            // Outlined variant uses custom text colors and subtle borders
             {
-              props: { variant: "text", color: "success" },
+              props: { variant: "outlined" },
               style: {
-                color: theme.vars.palette.success.text,
-              },
-            },
-            {
-              props: { variant: "text", color: "error" },
-              style: {
-                color: theme.vars.palette.error.text,
-              },
-            },
-            {
-              props: { variant: "text", color: "warning" },
-              style: {
-                color: theme.vars.palette.warning.text,
-              },
-            },
-            {
-              props: { variant: "text", color: "info" },
-              style: {
-                color: theme.vars.palette.info.text,
-              },
-            },
-            {
-              props: { variant: "outlined", color: "secondary" },
-              style: {
-                color: theme.vars.palette.secondary.text,
-                borderColor: `color-mix(in srgb, ${theme.vars.palette.secondary.text} 28%, transparent)`,
-              },
-            },
-            {
-              props: { variant: "outlined", color: "success" },
-              style: {
-                color: theme.vars.palette.success.text,
-                borderColor: `color-mix(in srgb, ${theme.vars.palette.success.text} 28%, transparent)`,
-              },
-            },
-            {
-              props: { variant: "outlined", color: "error" },
-              style: {
-                color: theme.vars.palette.error.text,
-                borderColor: `color-mix(in srgb, ${theme.vars.palette.error.text} 28%, transparent)`,
-              },
-            },
-            {
-              props: { variant: "outlined", color: "warning" },
-              style: {
-                color: theme.vars.palette.warning.text,
-                borderColor: `color-mix(in srgb, ${theme.vars.palette.warning.text} 28%, transparent)`,
-              },
-            },
-            {
-              props: { variant: "outlined", color: "info" },
-              style: {
-                color: theme.vars.palette.info.text,
-                borderColor: `color-mix(in srgb, ${theme.vars.palette.info.text} 28%, transparent)`,
+                "&.MuiButton-colorPrimary": {
+                  "--variant-outlinedBorder": `color-mix(in srgb, ${theme.vars.palette.primary.main} 28%, transparent)`,
+                },
+                "&.MuiButton-colorSecondary": {
+                  "--variant-outlinedColor": theme.vars.palette.secondary.text,
+                  "--variant-outlinedBorder": `color-mix(in srgb, ${theme.vars.palette.secondary.text} 28%, transparent)`,
+                },
+                "&.MuiButton-colorSuccess": {
+                  "--variant-outlinedColor": theme.vars.palette.success.text,
+                  "--variant-outlinedBorder": `color-mix(in srgb, ${theme.vars.palette.success.text} 28%, transparent)`,
+                },
+                "&.MuiButton-colorError": {
+                  "--variant-outlinedColor": theme.vars.palette.error.text,
+                  "--variant-outlinedBorder": `color-mix(in srgb, ${theme.vars.palette.error.text} 28%, transparent)`,
+                },
+                "&.MuiButton-colorWarning": {
+                  "--variant-outlinedColor": theme.vars.palette.warning.text,
+                  "--variant-outlinedBorder": `color-mix(in srgb, ${theme.vars.palette.warning.text} 28%, transparent)`,
+                },
+                "&.MuiButton-colorInfo": {
+                  "--variant-outlinedColor": theme.vars.palette.info.text,
+                  "--variant-outlinedBorder": `color-mix(in srgb, ${theme.vars.palette.info.text} 28%, transparent)`,
+                },
+                color: "var(--variant-outlinedColor)",
+                borderColor: "var(--variant-outlinedBorder)",
               },
             },
           ],
