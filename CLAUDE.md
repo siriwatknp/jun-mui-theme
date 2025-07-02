@@ -11,6 +11,11 @@ When working with Material UI libraries, aka `@mui/material` and `@mui/icons-mat
 - Refer to the @material-ui/llms.txt file. The file and folders contain the documentation for the Material UI libraries.
 - DO NOT use deprecated APIs.
 
+## Theme customization best practices
+
+- Avoid setting explicit `height` on components - let the padding and line-height determine the natural height
+- Use `variants` array in `styleOverrides.root` instead of deprecated size-specific slots
+
 ## Screenshots
 
 Browser screenshots are saved to the `screenshots/` directory in the project root.

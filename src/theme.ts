@@ -6,9 +6,96 @@ const theme = createTheme({
     primary: {
       main: "#000",
     },
+    secondary: {
+      main: "rgb(142, 142, 147)", // systemGray
+    },
+    success: {
+      main: "rgb(52, 199, 89)", // green
+      contrastText: "#fff",
+    },
+    error: {
+      main: "rgb(255, 56, 60)", // red
+    },
+    warning: {
+      main: "rgb(255, 204, 0)", // yellow
+    },
+    info: {
+      main: "rgb(0, 136, 255)", // blue
+    },
   },
   shape: {
     borderRadius: 8,
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          minWidth: "unset",
+          textTransform: "capitalize",
+          variants: [
+            {
+              props: { size: "small" },
+              style: {
+                padding: "4px 12px",
+                lineHeight: "20px",
+              },
+            },
+            {
+              props: { size: "medium" },
+              style: {
+                padding: "8px 16px",
+                lineHeight: "20px",
+              },
+            },
+            {
+              props: { size: "large" },
+              style: {
+                padding: "12px 24px",
+                lineHeight: "24px",
+              },
+            },
+            // Adjust padding for outlined buttons to compensate for border
+            {
+              props: { variant: "outlined", size: "small" },
+              style: {
+                padding: "3px 12px",
+                lineHeight: "20px",
+              },
+            },
+            {
+              props: { variant: "outlined", size: "medium" },
+              style: {
+                padding: "7px 16px",
+                lineHeight: "20px",
+              },
+            },
+            {
+              props: { variant: "outlined", size: "large" },
+              style: {
+                padding: "11px 24px",
+                lineHeight: "24px",
+              },
+            },
+            // Subtle border color for outlined primary buttons
+            {
+              props: { variant: "outlined", color: "primary" },
+              style: {
+                borderColor:
+                  "color-mix(in srgb, var(--mui-palette-primary-main) 28%, transparent)",
+              },
+            },
+            {
+              props: { variant: "outlined" },
+              style: {
+                "& .MuiTouchRipple-root": {
+                  inset: "-1px",
+                },
+              },
+            },
+          ],
+        },
+      },
+    },
   },
   typography: {
     fontFamily: [
