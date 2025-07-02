@@ -1,10 +1,14 @@
 import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
+  cssVariables: true,
   palette: {
     primary: {
-      main: "#1976d2",
+      main: "#000",
     },
+  },
+  shape: {
+    borderRadius: 8,
   },
   typography: {
     fontFamily: [
