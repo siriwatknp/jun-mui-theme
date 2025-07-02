@@ -2,6 +2,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Container, Typography, Box, Stack, Divider } from "@mui/material";
 import Button from "@mui/material/Button";
+import Alert from "@mui/material/Alert";
 import theme from "./theme";
 
 function App() {
@@ -114,6 +115,39 @@ function App() {
                   {variant} disabled
                 </Button>
               ))}
+            </Stack>
+          </Box>
+        </Box>
+
+        <Divider sx={{ my: 4 }} />
+
+        <Box sx={{ my: 4 }}>
+          <Typography variant="h4" component="h2" gutterBottom>
+            Alert
+          </Typography>
+          
+          <Box sx={{ mb: 4 }}>
+            <Typography variant="h6" gutterBottom>
+              Severities
+            </Typography>
+            <Stack spacing={2}>
+              <Alert severity="success">This is a success alert — check it out!</Alert>
+              <Alert severity="info">This is an info alert — check it out!</Alert>
+              <Alert severity="warning">This is a warning alert — check it out!</Alert>
+              <Alert severity="error">This is an error alert — check it out!</Alert>
+            </Stack>
+          </Box>
+
+          <Divider sx={{ my: 3 }} />
+
+          <Box sx={{ mb: 4 }}>
+            <Typography variant="h6" gutterBottom>
+              Variants
+            </Typography>
+            <Stack spacing={2}>
+              <Alert variant="filled" severity="success">This is a filled success alert — check it out!</Alert>
+              <Alert variant="outlined" severity="info">This is an outlined info alert — check it out!</Alert>
+              <Alert variant="standard" severity="warning">This is a standard warning alert — check it out!</Alert>
             </Stack>
           </Box>
         </Box>

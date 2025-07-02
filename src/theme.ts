@@ -1,5 +1,16 @@
 import { createTheme } from "@mui/material/styles";
 
+// Augment the palette to include custom 'text' property
+declare module "@mui/material/styles" {
+  interface PaletteColor {
+    text?: string;
+  }
+
+  interface SimplePaletteColorOptions {
+    text?: string;
+  }
+}
+
 const theme = createTheme({
   cssVariables: true,
   palette: {
@@ -8,19 +19,24 @@ const theme = createTheme({
     },
     secondary: {
       main: "rgb(142, 142, 147)", // systemGray
+      text: "rgb(108, 108, 112)", // systemGray increased contrast
     },
     success: {
       main: "rgb(52, 199, 89)", // green
+      text: "rgb(0, 137, 50)", // green increased contrast
       contrastText: "#fff",
     },
     error: {
       main: "rgb(255, 56, 60)", // red
+      text: "rgb(233, 21, 45)", // red increased contrast
     },
     warning: {
       main: "rgb(255, 204, 0)", // yellow
+      text: "rgb(161, 106, 0)", // yellow increased contrast
     },
     info: {
       main: "rgb(0, 136, 255)", // blue
+      text: "rgb(30, 110, 244)", // blue increased contrast
     },
   },
   shape: {
@@ -29,7 +45,7 @@ const theme = createTheme({
   components: {
     MuiButton: {
       styleOverrides: {
-        root: {
+        root: ({ theme }) => ({
           minWidth: "unset",
           textTransform: "capitalize",
           variants: [
@@ -80,8 +96,7 @@ const theme = createTheme({
             {
               props: { variant: "outlined", color: "primary" },
               style: {
-                borderColor:
-                  "color-mix(in srgb, var(--mui-palette-primary-main) 28%, transparent)",
+                borderColor: `color-mix(in srgb, ${theme.vars.palette.primary.main} 28%, transparent)`,
               },
             },
             {
@@ -92,8 +107,74 @@ const theme = createTheme({
                 },
               },
             },
+            // Use text token for non-contained buttons
+            {
+              props: { variant: "text", color: "secondary" },
+              style: {
+                color: theme.vars.palette.secondary.text,
+              },
+            },
+            {
+              props: { variant: "text", color: "success" },
+              style: {
+                color: theme.vars.palette.success.text,
+              },
+            },
+            {
+              props: { variant: "text", color: "error" },
+              style: {
+                color: theme.vars.palette.error.text,
+              },
+            },
+            {
+              props: { variant: "text", color: "warning" },
+              style: {
+                color: theme.vars.palette.warning.text,
+              },
+            },
+            {
+              props: { variant: "text", color: "info" },
+              style: {
+                color: theme.vars.palette.info.text,
+              },
+            },
+            {
+              props: { variant: "outlined", color: "secondary" },
+              style: {
+                color: theme.vars.palette.secondary.text,
+                borderColor: `color-mix(in srgb, ${theme.vars.palette.secondary.text} 28%, transparent)`,
+              },
+            },
+            {
+              props: { variant: "outlined", color: "success" },
+              style: {
+                color: theme.vars.palette.success.text,
+                borderColor: `color-mix(in srgb, ${theme.vars.palette.success.text} 28%, transparent)`,
+              },
+            },
+            {
+              props: { variant: "outlined", color: "error" },
+              style: {
+                color: theme.vars.palette.error.text,
+                borderColor: `color-mix(in srgb, ${theme.vars.palette.error.text} 28%, transparent)`,
+              },
+            },
+            {
+              props: { variant: "outlined", color: "warning" },
+              style: {
+                color: theme.vars.palette.warning.text,
+                borderColor: `color-mix(in srgb, ${theme.vars.palette.warning.text} 28%, transparent)`,
+              },
+            },
+            {
+              props: { variant: "outlined", color: "info" },
+              style: {
+                color: theme.vars.palette.info.text,
+                borderColor: `color-mix(in srgb, ${theme.vars.palette.info.text} 28%, transparent)`,
+              },
+            },
           ],
-        },
+        }),
       },
     },
   },
