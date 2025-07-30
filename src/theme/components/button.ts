@@ -1,0 +1,170 @@
+import type { ThemeOptions } from "@mui/material/styles";
+
+export const buttonTheme: ThemeOptions["components"] = {
+  MuiButtonBase: {
+    styleOverrides: {
+      root: {
+        "&& .MuiTouchRipple-child": {
+          background: "color-mix(in oklch, currentColor, transparent 60%)",
+        },
+      },
+    },
+  },
+  MuiButton: {
+    styleOverrides: {
+      root: ({ theme }) => ({
+        minWidth: "unset",
+        textTransform: "capitalize",
+        "@media (hover: hover)": {
+          "&:disabled": {
+            pointerEvents: "auto",
+            cursor: "not-allowed",
+          },
+        },
+        // When button contains only an icon (with or without TouchRipple)
+        "&:has(> svg:first-child):not(:has(> :not(svg):not(.MuiTouchRipple-root)))":
+          {
+            "&.MuiButton-sizeSmall": {
+              padding: "4px",
+              minWidth: "28px",
+            },
+            "&.MuiButton-sizeMedium": {
+              padding: "8px",
+              minWidth: "36px",
+            },
+            "&.MuiButton-sizeLarge": {
+              padding: "12px",
+              minWidth: "48px",
+            },
+            // Outlined variant needs to compensate for border
+            "&.MuiButton-outlined": {
+              "&.MuiButton-sizeSmall": {
+                padding: "3px",
+              },
+              "&.MuiButton-sizeMedium": {
+                padding: "7px",
+              },
+              "&.MuiButton-sizeLarge": {
+                padding: "11px",
+              },
+            },
+          },
+        variants: [
+          // Size variants
+          {
+            props: { size: "small" },
+            style: {
+              padding: "4px 12px",
+              lineHeight: "20px",
+            },
+          },
+          {
+            props: { size: "medium" },
+            style: {
+              padding: "8px 16px",
+              lineHeight: "20px",
+            },
+          },
+          {
+            props: { size: "large" },
+            style: {
+              padding: "12px 24px",
+              lineHeight: "24px",
+            },
+          },
+          // Outlined border compensation for all sizes
+          {
+            props: { variant: "outlined" },
+            style: {
+              "&.MuiButton-sizeSmall": {
+                padding: "3px 12px",
+              },
+              "&.MuiButton-sizeMedium": {
+                padding: "7px 16px",
+              },
+              "&.MuiButton-sizeLarge": {
+                padding: "11px 24px",
+              },
+              "& .MuiTouchRipple-root": {
+                inset: "-1px",
+              },
+            },
+          },
+          // Text variant uses custom text colors
+          {
+            props: { variant: "text" },
+            style: {
+              "&.MuiButton-colorSecondary": {
+                "--variant-textColor": (theme.vars || theme).palette.secondary
+                  .text,
+              },
+              "&.MuiButton-colorSuccess": {
+                "--variant-textColor": (theme.vars || theme).palette.success
+                  .text,
+              },
+              "&.MuiButton-colorError": {
+                "--variant-textColor": (theme.vars || theme).palette.error.text,
+              },
+              "&.MuiButton-colorWarning": {
+                "--variant-textColor": (theme.vars || theme).palette.warning
+                  .text,
+              },
+              "&.MuiButton-colorInfo": {
+                "--variant-textColor": (theme.vars || theme).palette.info.text,
+              },
+              color: "var(--variant-textColor)",
+            },
+          },
+          // Outlined variant uses custom text colors and subtle borders
+          {
+            props: { variant: "outlined" },
+            style: {
+              "&.MuiButton-colorPrimary": {
+                "--variant-outlinedBorder": `color-mix(in srgb, ${
+                  (theme.vars || theme).palette.primary.main
+                } 28%, transparent)`,
+              },
+              "&.MuiButton-colorSecondary": {
+                "--variant-outlinedColor": (theme.vars || theme).palette
+                  .secondary.text,
+                "--variant-outlinedBorder": `color-mix(in srgb, ${
+                  (theme.vars || theme).palette.secondary.text
+                } 28%, transparent)`,
+              },
+              "&.MuiButton-colorSuccess": {
+                "--variant-outlinedColor": (theme.vars || theme).palette.success
+                  .text,
+                "--variant-outlinedBorder": `color-mix(in srgb, ${
+                  (theme.vars || theme).palette.success.text
+                } 28%, transparent)`,
+              },
+              "&.MuiButton-colorError": {
+                "--variant-outlinedColor": (theme.vars || theme).palette.error
+                  .text,
+                "--variant-outlinedBorder": `color-mix(in srgb, ${
+                  (theme.vars || theme).palette.error.text
+                } 28%, transparent)`,
+              },
+              "&.MuiButton-colorWarning": {
+                "--variant-outlinedColor": (theme.vars || theme).palette.warning
+                  .text,
+                "--variant-outlinedBorder": `color-mix(in srgb, ${
+                  (theme.vars || theme).palette.warning.text
+                } 28%, transparent)`,
+              },
+              "&.MuiButton-colorInfo": {
+                "--variant-outlinedColor": (theme.vars || theme).palette.info
+                  .text,
+                "--variant-outlinedBorder": `color-mix(in srgb, ${
+                  (theme.vars || theme).palette.info.text
+                } 28%, transparent)`,
+              },
+              color: "var(--variant-outlinedColor)",
+              borderColor: "var(--variant-outlinedBorder)",
+            },
+          },
+        ],
+      }),
+    },
+  },
+};

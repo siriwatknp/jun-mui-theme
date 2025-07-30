@@ -1,4 +1,9 @@
 import { createTheme } from "@mui/material/styles";
+import type {} from "@mui/material/themeCssVarsAugmentation";
+import { buttonTheme } from "./theme/components/button";
+import { textFieldTheme } from "./theme/components/text-field";
+import { selectTheme } from "./theme/components/select";
+import { paperTheme } from "./theme/components/paper";
 
 // Augment the palette to include custom 'text' property
 declare module "@mui/material/styles" {
@@ -12,140 +17,87 @@ declare module "@mui/material/styles" {
 }
 
 const theme = createTheme({
-  cssVariables: true,
-  palette: {
-    primary: {
-      main: "#000",
+  cssVariables: {
+    colorSchemeSelector: "class",
+  },
+  colorSchemes: {
+    light: {
+      palette: {
+        action: {
+          activatedOpacity: 0.38, // Reduced from 0.54
+          selectedOpacity: 0.04, // Reduced from 0.08
+          disabledOpacity: 0.2, // Reduced from 0.38
+          focusOpacity: 0.08, // Reduced from 0.12
+        },
+        primary: {
+          main: "#000",
+          text: "#212121",
+        },
+        secondary: {
+          main: "rgb(229, 229, 234)", // systemGray
+          text: "rgb(108, 108, 112)", // systemGray increased contrast
+        },
+        success: {
+          main: "rgb(52, 199, 89)", // green
+          text: "rgb(0, 137, 50)", // green increased contrast
+        },
+        error: {
+          main: "rgb(255, 56, 60)", // red
+          text: "rgb(233, 21, 45)", // red increased contrast
+        },
+        warning: {
+          main: "rgb(255, 204, 0)", // yellow
+          text: "rgb(161, 106, 0)", // yellow increased contrast
+        },
+        info: {
+          main: "rgb(0, 136, 255)", // blue
+          text: "rgb(30, 110, 244)", // blue increased contrast
+        },
+      },
     },
-    secondary: {
-      main: "rgb(142, 142, 147)", // systemGray
-      text: "rgb(108, 108, 112)", // systemGray increased contrast
-    },
-    success: {
-      main: "rgb(52, 199, 89)", // green
-      text: "rgb(0, 137, 50)", // green increased contrast
-      contrastText: "#fff",
-    },
-    error: {
-      main: "rgb(255, 56, 60)", // red
-      text: "rgb(233, 21, 45)", // red increased contrast
-    },
-    warning: {
-      main: "rgb(255, 204, 0)", // yellow
-      text: "rgb(161, 106, 0)", // yellow increased contrast
-    },
-    info: {
-      main: "rgb(0, 136, 255)", // blue
-      text: "rgb(30, 110, 244)", // blue increased contrast
+    dark: {
+      palette: {
+        action: {
+          activatedOpacity: 0.38, // Reduced intensity
+          selectedOpacity: 0.04, // Subtle selection
+          disabledOpacity: 0.2, // Reduced opacity
+          focusOpacity: 0.08, // Subtle focus
+        },
+        primary: {
+          main: "#fff",
+          text: "#f5f5f5",
+        },
+        secondary: {
+          main: "rgb(142, 142, 147)", // systemGray
+          text: "rgb(174, 174, 178)", // systemGray for dark mode
+        },
+        success: {
+          main: "rgb(48, 209, 88)", // green for dark
+          text: "rgb(71, 217, 104)", // green for dark
+        },
+        error: {
+          main: "rgb(255, 69, 58)", // red for dark
+          text: "rgb(255, 97, 101)", // red for dark
+        },
+        warning: {
+          main: "rgb(255, 214, 10)", // yellow for dark
+          text: "rgb(254, 223, 67)", // yellow for dark
+        },
+        info: {
+          main: "rgb(0, 145, 255)", // blue for dark
+          text: "rgb(92, 184, 255)", // blue for dark
+        },
+      },
     },
   },
   shape: {
     borderRadius: 8,
   },
   components: {
-    MuiButton: {
-      styleOverrides: {
-        root: ({ theme }) => ({
-          minWidth: "unset",
-          textTransform: "capitalize",
-          variants: [
-            // Size variants
-            {
-              props: { size: "small" },
-              style: {
-                padding: "4px 12px",
-                lineHeight: "20px",
-              },
-            },
-            {
-              props: { size: "medium" },
-              style: {
-                padding: "8px 16px",
-                lineHeight: "20px",
-              },
-            },
-            {
-              props: { size: "large" },
-              style: {
-                padding: "12px 24px",
-                lineHeight: "24px",
-              },
-            },
-            // Outlined border compensation for all sizes
-            {
-              props: { variant: "outlined" },
-              style: {
-                "&.MuiButton-sizeSmall": {
-                  padding: "3px 12px",
-                },
-                "&.MuiButton-sizeMedium": {
-                  padding: "7px 16px",
-                },
-                "&.MuiButton-sizeLarge": {
-                  padding: "11px 24px",
-                },
-                "& .MuiTouchRipple-root": {
-                  inset: "-1px",
-                },
-              },
-            },
-            // Text variant uses custom text colors
-            {
-              props: { variant: "text" },
-              style: {
-                "&.MuiButton-colorSecondary": {
-                  "--variant-textColor": theme.vars.palette.secondary.text,
-                },
-                "&.MuiButton-colorSuccess": {
-                  "--variant-textColor": theme.vars.palette.success.text,
-                },
-                "&.MuiButton-colorError": {
-                  "--variant-textColor": theme.vars.palette.error.text,
-                },
-                "&.MuiButton-colorWarning": {
-                  "--variant-textColor": theme.vars.palette.warning.text,
-                },
-                "&.MuiButton-colorInfo": {
-                  "--variant-textColor": theme.vars.palette.info.text,
-                },
-                color: "var(--variant-textColor)",
-              },
-            },
-            // Outlined variant uses custom text colors and subtle borders
-            {
-              props: { variant: "outlined" },
-              style: {
-                "&.MuiButton-colorPrimary": {
-                  "--variant-outlinedBorder": `color-mix(in srgb, ${theme.vars.palette.primary.main} 28%, transparent)`,
-                },
-                "&.MuiButton-colorSecondary": {
-                  "--variant-outlinedColor": theme.vars.palette.secondary.text,
-                  "--variant-outlinedBorder": `color-mix(in srgb, ${theme.vars.palette.secondary.text} 28%, transparent)`,
-                },
-                "&.MuiButton-colorSuccess": {
-                  "--variant-outlinedColor": theme.vars.palette.success.text,
-                  "--variant-outlinedBorder": `color-mix(in srgb, ${theme.vars.palette.success.text} 28%, transparent)`,
-                },
-                "&.MuiButton-colorError": {
-                  "--variant-outlinedColor": theme.vars.palette.error.text,
-                  "--variant-outlinedBorder": `color-mix(in srgb, ${theme.vars.palette.error.text} 28%, transparent)`,
-                },
-                "&.MuiButton-colorWarning": {
-                  "--variant-outlinedColor": theme.vars.palette.warning.text,
-                  "--variant-outlinedBorder": `color-mix(in srgb, ${theme.vars.palette.warning.text} 28%, transparent)`,
-                },
-                "&.MuiButton-colorInfo": {
-                  "--variant-outlinedColor": theme.vars.palette.info.text,
-                  "--variant-outlinedBorder": `color-mix(in srgb, ${theme.vars.palette.info.text} 28%, transparent)`,
-                },
-                color: "var(--variant-outlinedColor)",
-                borderColor: "var(--variant-outlinedBorder)",
-              },
-            },
-          ],
-        }),
-      },
-    },
+    ...buttonTheme,
+    ...textFieldTheme,
+    ...selectTheme,
+    ...paperTheme,
   },
   typography: {
     fontFamily: [

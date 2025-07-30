@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(claude mcp:*)",
+      "mcp__browser-tools__takeScreenshot",
+      "Bash(git add:*)",
+      "Bash(git rm:*)",
+      "WebFetch(domain:developer.apple.com)"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "browser-tools"
+  ]
+}
