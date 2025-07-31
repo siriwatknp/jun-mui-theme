@@ -44,6 +44,67 @@ export const chipTheme: ThemeOptions["components"] = {
               color: (theme.vars || theme).palette.info.text,
             },
           },
+          // Filled variant for success, error, warning, info
+          {
+            props: { variant: "filled" },
+            style: {
+              ...theme.applyStyles("dark", {
+                "--_p": "60%",
+              }),
+            },
+          },
+          {
+            props: { variant: "filled", color: "success" },
+            style: {
+              color: `color-mix(in oklch, ${
+                (theme.vars || theme).palette.success.text
+              }, ${(theme.vars || theme).palette.common.onBackground} 30%)`,
+              backgroundColor: `color-mix(in oklch, ${
+                (theme.vars || theme).palette.success.main
+              }, ${
+                (theme.vars || theme).palette.common.background
+              } var(--_p, 80%))`,
+            },
+          },
+          {
+            props: { variant: "filled", color: "error" },
+            style: {
+              color: `color-mix(in oklch, ${
+                (theme.vars || theme).palette.error.text
+              }, ${(theme.vars || theme).palette.common.onBackground} 30%)`,
+              backgroundColor: `color-mix(in oklch, ${
+                (theme.vars || theme).palette.error.main
+              }, ${
+                (theme.vars || theme).palette.common.background
+              } var(--_p, 80%))`,
+            },
+          },
+          {
+            props: { variant: "filled", color: "warning" },
+            style: {
+              color: `color-mix(in oklch, ${
+                (theme.vars || theme).palette.warning.text
+              }, ${(theme.vars || theme).palette.common.onBackground} 30%)`,
+              backgroundColor: `color-mix(in oklch, ${
+                (theme.vars || theme).palette.warning.main
+              }, ${
+                (theme.vars || theme).palette.common.background
+              } var(--_p, 80%))`,
+            },
+          },
+          {
+            props: { variant: "filled", color: "info" },
+            style: {
+              color: `color-mix(in oklch, ${
+                (theme.vars || theme).palette.info.text
+              }, ${(theme.vars || theme).palette.common.onBackground} 30%)`,
+              backgroundColor: `color-mix(in oklch, ${
+                (theme.vars || theme).palette.info.main
+              }, ${
+                (theme.vars || theme).palette.common.background
+              } var(--_p, 80%))`,
+            },
+          },
         ],
       }),
       icon: {

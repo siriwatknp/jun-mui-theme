@@ -11,6 +11,9 @@ export const buttonTheme: ThemeOptions["components"] = {
     },
   },
   MuiButton: {
+    defaultProps: {
+      disableElevation: true,
+    },
     styleOverrides: {
       root: ({ theme }) => ({
         minWidth: "unset",
@@ -161,6 +164,51 @@ export const buttonTheme: ThemeOptions["components"] = {
               },
               color: "var(--variant-outlinedColor)",
               borderColor: "var(--variant-outlinedBorder)",
+            },
+          },
+          // Contained variant for success, error, warning, info
+          {
+            props: { variant: "contained", color: "success" },
+            style: {
+              color: `color-mix(in oklch, ${
+                (theme.vars || theme).palette.success.text
+              }, ${(theme.vars || theme).palette.common.onBackground} 30%)`,
+              backgroundColor: `color-mix(in oklch, ${
+                (theme.vars || theme).palette.success.main
+              }, ${(theme.vars || theme).palette.common.background} 60%)`,
+            },
+          },
+          {
+            props: { variant: "contained", color: "error" },
+            style: {
+              color: `color-mix(in oklch, ${
+                (theme.vars || theme).palette.error.text
+              }, ${(theme.vars || theme).palette.common.onBackground} 30%)`,
+              backgroundColor: `color-mix(in oklch, ${
+                (theme.vars || theme).palette.error.main
+              }, ${(theme.vars || theme).palette.common.background} 60%)`,
+            },
+          },
+          {
+            props: { variant: "contained", color: "warning" },
+            style: {
+              color: `color-mix(in oklch, ${
+                (theme.vars || theme).palette.warning.text
+              }, ${(theme.vars || theme).palette.common.onBackground} 30%)`,
+              backgroundColor: `color-mix(in oklch, ${
+                (theme.vars || theme).palette.warning.main
+              }, ${(theme.vars || theme).palette.common.background} 60%)`,
+            },
+          },
+          {
+            props: { variant: "contained", color: "info" },
+            style: {
+              color: `color-mix(in oklch, ${
+                (theme.vars || theme).palette.info.text
+              }, ${(theme.vars || theme).palette.common.onBackground} 30%)`,
+              backgroundColor: `color-mix(in oklch, ${
+                (theme.vars || theme).palette.info.main
+              }, ${(theme.vars || theme).palette.common.background} 60%)`,
             },
           },
         ],
