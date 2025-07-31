@@ -5,6 +5,57 @@ export const textFieldTheme: ThemeOptions["components"] = {
     defaultProps: {
       variant: "outlined",
     },
+    styleOverrides: {
+      root: ({ theme }) => ({
+        variants: [
+          {
+            props: { variant: "outlined" },
+            style: {
+              "& .MuiFormLabel-root, & .MuiInputLabel-root.MuiInputLabel-shrink":
+                {
+                  position: "static",
+                  transform: "none",
+                  pointerEvents: "auto",
+                  marginBottom: "0.25rem",
+                  maxWidth: "unset",
+                  ...theme.typography.body2,
+                  fontWeight: 500,
+                  color: (theme.vars || theme).palette.text.primary,
+                },
+              "& .MuiOutlinedInput-input": {
+                paddingBlock: "9.5px",
+              },
+              "&&& .MuiInputBase-input": {
+                "&::-webkit-input-placeholder": {
+                  opacity: "0.42 !important",
+                },
+                "&::-moz-placeholder": {
+                  opacity: "0.42 !important",
+                },
+                "&::-ms-input-placeholder": {
+                  opacity: "0.42 !important",
+                },
+              },
+              "&& .MuiOutlinedInput-notchedOutline": {
+                transition: "none",
+                "& legend": {
+                  width: 0,
+                },
+              },
+            },
+          },
+          {
+            props: { variant: "outlined", size: "small" },
+            style: {
+              "& .MuiInputBase-input": {
+                paddingBlock: "6.5px",
+                paddingInline: "12px",
+              },
+            },
+          },
+        ],
+      }),
+    },
   },
   MuiInputBase: {
     styleOverrides: {

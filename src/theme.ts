@@ -109,6 +109,9 @@ const theme = createTheme({
       "Arial",
       "sans-serif",
     ].join(","),
+    body2: {
+      lineHeight: "1.4285714286",
+    },
   },
   shadows: [
     "none",

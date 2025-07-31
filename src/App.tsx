@@ -353,9 +353,21 @@ function App() {
             </Typography>
             <Stack spacing={2}>
               <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
-                <TextField label="Standard" variant="standard" />
-                <TextField label="Filled" variant="filled" />
-                <TextField label="Outlined" variant="outlined" />
+                <TextField
+                  label="Standard"
+                  variant="standard"
+                  placeholder="Placeholder"
+                />
+                <TextField
+                  label="Filled"
+                  variant="filled"
+                  placeholder="Placeholder"
+                />
+                <TextField
+                  label="Outlined"
+                  variant="outlined"
+                  placeholder="Placeholder"
+                />
               </Box>
             </Stack>
           </Box>
