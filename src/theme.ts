@@ -7,6 +7,8 @@ import { autocompleteTheme } from "./theme/components/autocomplete";
 import { chipTheme } from "./theme/components/chip";
 import { avatarTheme } from "./theme/components/avatar";
 import { menuTheme } from "./theme/components/menu";
+import { tableTheme } from "./theme/components/table";
+import { cardTheme } from "./theme/components/card";
 
 // Augment the palette to include custom 'text' property
 declare module "@mui/material/styles" {
@@ -114,6 +116,8 @@ const theme = createTheme({
     ...autocompleteTheme,
     ...chipTheme,
     ...avatarTheme,
+    ...tableTheme,
+    ...cardTheme,
   },
   typography: {
     fontFamily: [
