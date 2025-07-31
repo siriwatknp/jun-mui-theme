@@ -3,7 +3,10 @@ import type {} from "@mui/material/themeCssVarsAugmentation";
 import { buttonTheme } from "./theme/components/button";
 import { textFieldTheme } from "./theme/components/text-field";
 import { selectTheme } from "./theme/components/select";
-import { paperTheme } from "./theme/components/paper";
+import { autocompleteTheme } from "./theme/components/autocomplete";
+import { chipTheme } from "./theme/components/chip";
+import { avatarTheme } from "./theme/components/avatar";
+import { menuTheme } from "./theme/components/menu";
 
 // Augment the palette to include custom 'text' property
 declare module "@mui/material/styles" {
@@ -14,6 +17,10 @@ declare module "@mui/material/styles" {
   interface SimplePaletteColorOptions {
     text?: string;
   }
+
+  interface TypeText {
+    icon?: string;
+  }
 }
 
 const theme = createTheme({
@@ -23,9 +30,12 @@ const theme = createTheme({
   colorSchemes: {
     light: {
       palette: {
+        text: {
+          icon: "rgb(142, 142, 147)", // systemGray for icons
+        },
         action: {
           activatedOpacity: 0.38, // Reduced from 0.54
-          selectedOpacity: 0.04, // Reduced from 0.08
+          selectedOpacity: 0.06, // Reduced from 0.08
           disabledOpacity: 0.2, // Reduced from 0.38
           focusOpacity: 0.08, // Reduced from 0.12
         },
@@ -57,9 +67,12 @@ const theme = createTheme({
     },
     dark: {
       palette: {
+        text: {
+          icon: "rgb(174, 174, 178)", // systemGray for icons in dark mode
+        },
         action: {
           activatedOpacity: 0.38, // Reduced intensity
-          selectedOpacity: 0.04, // Subtle selection
+          selectedOpacity: 0.06, // Subtle selection
           disabledOpacity: 0.2, // Reduced opacity
           focusOpacity: 0.08, // Subtle focus
         },
@@ -97,7 +110,10 @@ const theme = createTheme({
     ...buttonTheme,
     ...textFieldTheme,
     ...selectTheme,
-    ...paperTheme,
+    ...menuTheme,
+    ...autocompleteTheme,
+    ...chipTheme,
+    ...avatarTheme,
   },
   typography: {
     fontFamily: [

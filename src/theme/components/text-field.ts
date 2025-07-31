@@ -280,6 +280,9 @@ export const textFieldTheme: ThemeOptions["components"] = {
       root: ({ theme }) => ({
         marginTop: 4,
         fontSize: theme.typography.caption.fontSize,
+        "&.Mui-error": {
+          color: (theme.vars || theme).palette.error.text,
+        },
       }),
     },
   },

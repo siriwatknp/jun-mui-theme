@@ -22,7 +22,7 @@ export const buttonTheme: ThemeOptions["components"] = {
           },
         },
         // When button contains only an icon (with or without TouchRipple)
-        "&:has(> svg:first-child):not(:has(> :not(svg):not(.MuiTouchRipple-root)))":
+        "&:has(> svg:first-of-type):not(:has(> :not(svg):not(.MuiTouchRipple-root)))":
           {
             "&.MuiButton-sizeSmall": {
               padding: "4px",

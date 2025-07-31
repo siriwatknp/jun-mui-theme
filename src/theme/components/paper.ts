@@ -9,14 +9,7 @@ export const paperTheme: ThemeOptions["components"] = {
           {
             props: { variant: "outlined" },
             style: {
-              border: `1px solid ${(theme.vars || theme).palette.divider}`,
-              boxShadow: "none",
-            },
-          },
-          {
-            props: { variant: "elevation" },
-            style: {
-              boxShadow: theme.shadows[1],
+              // border: `1px solid ${(theme.vars || theme).palette.divider}`,
             },
           },
         ],
@@ -24,15 +17,6 @@ export const paperTheme: ThemeOptions["components"] = {
       rounded: {
         borderRadius: 8,
       },
-    },
-  },
-  MuiPopover: {
-    styleOverrides: {
-      paper: ({ theme }) => ({
-        border: `1px solid ${(theme.vars || theme).palette.divider}`,
-        boxShadow: theme.shadows[8],
-        backgroundImage: "none",
-      }),
     },
   },
 };
