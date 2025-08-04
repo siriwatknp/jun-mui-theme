@@ -1,7 +1,7 @@
 import type { ThemeOptions } from "@mui/material/styles";
 
 export const textFieldTheme: ThemeOptions["components"] = {
-  MuiTextField: {
+  MuiFormControl: {
     defaultProps: {
       variant: "outlined",
     },
@@ -18,11 +18,10 @@ export const textFieldTheme: ThemeOptions["components"] = {
                   pointerEvents: "auto",
                   marginBottom: "0.25rem",
                   maxWidth: "unset",
-                  ...theme.typography.body2,
                   fontWeight: 500,
                   color: (theme.vars || theme).palette.text.primary,
                 },
-              "& .MuiOutlinedInput-input": {
+              "& .MuiOutlinedInput-input:where(input)": {
                 paddingBlock: "9.5px",
               },
               "&&& .MuiInputBase-input": {
@@ -47,7 +46,7 @@ export const textFieldTheme: ThemeOptions["components"] = {
           {
             props: { variant: "outlined", size: "small" },
             style: {
-              "& .MuiInputBase-input": {
+              "& .MuiInputBase-input:where(input)": {
                 paddingBlock: "6.5px",
                 paddingInline: "12px",
               },
@@ -166,28 +165,18 @@ export const textFieldTheme: ThemeOptions["components"] = {
         "&.Mui-error::after": {
           borderBottomColor: (theme.vars || theme).palette.error.main,
         },
-        variants: [
-          {
-            props: { multiline: true },
-            style: {
-              padding: "8px 12px",
-            },
-          },
-          {
-            props: { size: "small", multiline: true },
-            style: {
-              padding: "4px 10px",
-            },
-          },
-        ],
       }),
       input: () => ({
-        padding: "25px 12px 8px",
+        "&:where(input)": {
+          padding: "25px 12px 8px",
+        },
         variants: [
           {
             props: { size: "small" },
             style: {
-              padding: "21px 10px 4px",
+              "&:where(input)": {
+                padding: "21px 10px 4px",
+              },
             },
           },
         ],
@@ -231,16 +220,8 @@ export const textFieldTheme: ThemeOptions["components"] = {
         "&.Mui-error": {
           color: (theme.vars || theme).palette.error.main,
         },
-        variants: [
-          {
-            props: { size: "small" },
-            style: {
-              fontSize: theme.typography.body2.fontSize,
-            },
-          },
-        ],
       }),
-      outlined: () => ({
+      outlined: {
         "&.MuiInputLabel-shrink": {
           transform: "translate(14px, -9px) scale(0.75)",
         },
@@ -255,8 +236,8 @@ export const textFieldTheme: ThemeOptions["components"] = {
             },
           },
         ],
-      }),
-      filled: () => ({
+      },
+      filled: {
         transform: "translate(12px, 16px) scale(1)",
         "&.MuiInputLabel-shrink": {
           transform: "translate(12px, 7px) scale(0.75)",
@@ -272,7 +253,7 @@ export const textFieldTheme: ThemeOptions["components"] = {
             },
           },
         ],
-      }),
+      },
     },
   },
   MuiFormHelperText: {
@@ -282,15 +263,6 @@ export const textFieldTheme: ThemeOptions["components"] = {
         fontSize: theme.typography.caption.fontSize,
         "&.Mui-error": {
           color: (theme.vars || theme).palette.error.text,
-        },
-      }),
-    },
-  },
-  MuiSelect: {
-    styleOverrides: {
-      select: () => ({
-        "&.MuiInputBase-input": {
-          paddingRight: 32,
         },
       }),
     },

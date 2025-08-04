@@ -18,9 +18,9 @@ export const autocompleteTheme: ThemeOptions["components"] = {
           "&:has(.MuiChip-root)": {
             paddingLeft: "6px",
           },
-        },
-        "& .MuiAutocomplete-inputRoot .MuiAutocomplete-input": {
-          paddingBlock: 4.5,
+          "& .MuiAutocomplete-input": {
+            paddingBlock: 7.5,
+          },
         },
         "& .MuiAutocomplete-inputRoot.MuiInputBase-sizeSmall": {
           paddingTop: 4,

@@ -583,10 +583,25 @@ function App() {
                   rows={4}
                   defaultValue="Default Value"
                 />
+                <TextField
+                  label="Multiline"
+                  multiline
+                  size="small"
+                  rows={4}
+                  defaultValue="Default Value"
+                />
                 <TextField label="Multiline Flexible" multiline maxRows={4} />
                 <TextField
                   label="Multiline Filled"
                   multiline
+                  rows={4}
+                  defaultValue="Default Value"
+                  variant="filled"
+                />
+                <TextField
+                  label="Multiline Filled"
+                  multiline
+                  size="small"
                   rows={4}
                   defaultValue="Default Value"
                   variant="filled"
@@ -638,6 +653,22 @@ function App() {
                   <MenuItem value="BTC">BTC</MenuItem>
                   <MenuItem value="JPY">JPY</MenuItem>
                 </TextField>
+              </Box>
+              <Box>
+                <Typography variant="h6" gutterBottom>
+                  Select (Outlined)
+                </Typography>
+                <FormControl variant="outlined" sx={{ minWidth: 200 }}>
+                  <InputLabel>Age</InputLabel>
+                  <Select label="Age">
+                    <MenuItem value="">
+                      <em>None</em>
+                    </MenuItem>
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                  </Select>
+                </FormControl>
               </Box>
             </Stack>
           </Box>
