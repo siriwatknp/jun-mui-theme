@@ -11,6 +11,9 @@ import { tableTheme } from "./theme/components/table";
 import { cardTheme } from "./theme/components/card";
 import { dialogTheme } from "./theme/components/dialog";
 import { datePickerTheme } from "./theme/components/date-picker";
+import { svgIconTheme } from "./theme/components/svg-icon";
+import { dataGridTheme } from "./theme/components/data-grid";
+import { alertTheme } from "./theme/components/alert";
 
 // Augment the palette to include custom 'text' property
 declare module "@mui/material/styles" {
@@ -35,7 +38,7 @@ const theme = createTheme({
     light: {
       palette: {
         text: {
-          icon: "rgb(142, 142, 147)", // systemGray for icons
+          icon: "rgb(0 0 0 / 0.48)", // systemGray for icons
         },
         action: {
           activatedOpacity: 0.38, // Reduced from 0.54
@@ -72,7 +75,7 @@ const theme = createTheme({
     dark: {
       palette: {
         text: {
-          icon: "rgb(174, 174, 178)", // systemGray for icons in dark mode
+          icon: "rgb(255 255 255 / 0.6)", // systemGray for icons in dark mode
         },
         action: {
           activatedOpacity: 0.38, // Reduced intensity
@@ -122,6 +125,9 @@ const theme = createTheme({
     ...cardTheme,
     ...dialogTheme,
     ...datePickerTheme,
+    ...svgIconTheme,
+    ...dataGridTheme,
+    ...alertTheme,
   },
   typography: {
     fontFamily: [

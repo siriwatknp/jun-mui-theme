@@ -83,6 +83,26 @@ import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import React from "react";
+import HomeIcon from "@mui/icons-material/Home";
+import SettingsIcon from "@mui/icons-material/Settings";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import InfoIcon from "@mui/icons-material/Info";
+import WarningIcon from "@mui/icons-material/Warning";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import EmailIcon from "@mui/icons-material/Email";
+import PhoneIcon from "@mui/icons-material/Phone";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import StarIcon from "@mui/icons-material/Star";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
+import PrintIcon from "@mui/icons-material/Print";
+import DownloadIcon from "@mui/icons-material/Download";
+import RefreshIcon from "@mui/icons-material/Refresh";
+import ZoomInIcon from "@mui/icons-material/ZoomIn";
+import ZoomOutIcon from "@mui/icons-material/ZoomOut";
+import FullscreenIcon from "@mui/icons-material/Fullscreen";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -91,6 +111,15 @@ import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { DateRangePicker } from "@mui/x-date-pickers-pro/DateRangePicker";
 import { SingleInputDateRangeField } from "@mui/x-date-pickers-pro/SingleInputDateRangeField";
 import dayjs from "dayjs";
+import {
+  DataGrid,
+  GridToolbar,
+  GridActionsCellItem,
+  type GridColDef,
+  type GridRowsProp,
+  type GridRowParams,
+} from "@mui/x-data-grid";
+import LinearProgress from "@mui/material/LinearProgress";
 import theme from "./theme";
 
 function ColorSchemeToggle() {
@@ -197,6 +226,260 @@ function App() {
     { title: "MySQL", category: "Database" },
     { title: "Redis", category: "Database" },
   ];
+
+  // Data Grid data
+  const basicColumns: GridColDef[] = [
+    { field: "id", headerName: "ID", width: 90 },
+    {
+      field: "firstName",
+      headerName: "First name",
+      width: 150,
+      editable: true,
+    },
+    { field: "lastName", headerName: "Last name", width: 150, editable: true },
+    {
+      field: "age",
+      headerName: "Age",
+      type: "number",
+      width: 110,
+      editable: true,
+    },
+    {
+      field: "fullName",
+      headerName: "Full name",
+      description: "This column has a value getter and is not sortable.",
+      sortable: false,
+      width: 200,
+      valueGetter: (value, row) =>
+        `${row.firstName || ""} ${row.lastName || ""}`,
+    },
+  ];
+
+  const basicRows: GridRowsProp = [
+    { id: 1, lastName: "Snow", firstName: "Jon", age: 35 },
+    { id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
+    { id: 3, lastName: "Lannister", firstName: "Jaime", age: 45 },
+    { id: 4, lastName: "Stark", firstName: "Arya", age: 16 },
+    { id: 5, lastName: "Targaryen", firstName: "Daenerys", age: null },
+    { id: 6, lastName: "Melisandre", firstName: null, age: 150 },
+    { id: 7, lastName: "Clifford", firstName: "Ferrara", age: 44 },
+    { id: 8, lastName: "Frances", firstName: "Rossini", age: 36 },
+    { id: 9, lastName: "Roxie", firstName: "Harvey", age: 65 },
+  ];
+
+  // Custom cell renderer columns
+  const customColumns: GridColDef[] = [
+    { field: "id", headerName: "ID", width: 70 },
+    { field: "name", headerName: "Name", width: 200 },
+    { field: "email", headerName: "Email", width: 250 },
+    {
+      field: "status",
+      headerName: "Status",
+      width: 130,
+      renderCell: (params) => (
+        <Chip
+          label={params.value}
+          color={
+            params.value === "Active"
+              ? "success"
+              : params.value === "Pending"
+                ? "warning"
+                : "default"
+          }
+          size="small"
+          variant="outlined"
+        />
+      ),
+    },
+    {
+      field: "progress",
+      headerName: "Progress",
+      width: 200,
+      renderCell: (params) => (
+        <Box sx={{ width: "100%", mr: 1 }}>
+          <LinearProgress
+            variant="determinate"
+            value={params.value}
+            sx={{ height: 8, borderRadius: 4 }}
+          />
+          <Typography variant="caption" sx={{ mt: 0.5, display: "block" }}>
+            {params.value}%
+          </Typography>
+        </Box>
+      ),
+    },
+    {
+      field: "avatar",
+      headerName: "Avatar",
+      width: 100,
+      renderCell: (params) => (
+        <Avatar sx={{ bgcolor: params.value }}>
+          {params.row.name.charAt(0)}
+        </Avatar>
+      ),
+    },
+  ];
+
+  const customRows: GridRowsProp = [
+    {
+      id: 1,
+      name: "John Doe",
+      email: "john.doe@example.com",
+      status: "Active",
+      progress: 75,
+      avatar: "primary.main",
+    },
+    {
+      id: 2,
+      name: "Jane Smith",
+      email: "jane.smith@example.com",
+      status: "Pending",
+      progress: 30,
+      avatar: "secondary.main",
+    },
+    {
+      id: 3,
+      name: "Bob Johnson",
+      email: "bob.johnson@example.com",
+      status: "Inactive",
+      progress: 100,
+      avatar: "success.main",
+    },
+    {
+      id: 4,
+      name: "Alice Brown",
+      email: "alice.brown@example.com",
+      status: "Active",
+      progress: 60,
+      avatar: "warning.main",
+    },
+    {
+      id: 5,
+      name: "Charlie Wilson",
+      email: "charlie.wilson@example.com",
+      status: "Active",
+      progress: 90,
+      avatar: "error.main",
+    },
+  ];
+
+  // Toolbar demo data
+  const toolbarColumns: GridColDef[] = [
+    { field: "id", headerName: "ID", width: 90 },
+    { field: "name", headerName: "Name", width: 200, editable: true },
+    { field: "department", headerName: "Department", width: 150 },
+    { field: "position", headerName: "Position", width: 200 },
+    {
+      field: "salary",
+      headerName: "Salary",
+      type: "number",
+      width: 130,
+      valueFormatter: (value) =>
+        value != null ? `$${Number(value).toLocaleString()}` : "",
+    },
+    { field: "startDate", headerName: "Start Date", width: 130 },
+  ];
+
+  const toolbarRows: GridRowsProp = Array.from({ length: 50 }, (_, index) => ({
+    id: index + 1,
+    name: `Employee ${index + 1}`,
+    department: ["Engineering", "Sales", "Marketing", "HR", "Finance"][
+      Math.floor(Math.random() * 5)
+    ],
+    position: ["Manager", "Developer", "Designer", "Analyst", "Coordinator"][
+      Math.floor(Math.random() * 5)
+    ],
+    salary: Math.floor(Math.random() * 100000) + 50000,
+    startDate: new Date(
+      2020 + Math.floor(Math.random() * 4),
+      Math.floor(Math.random() * 12),
+      Math.floor(Math.random() * 28) + 1,
+    ).toLocaleDateString(),
+  }));
+
+  // Dense grid data
+  const denseColumns = basicColumns;
+  const denseRows = toolbarRows.slice(0, 20);
+
+  // Action columns
+  const actionColumns: GridColDef[] = [
+    { field: "id", headerName: "ID", width: 70 },
+    { field: "title", headerName: "Title", width: 250 },
+    { field: "author", headerName: "Author", width: 200 },
+    { field: "status", headerName: "Status", width: 130 },
+    {
+      field: "actions",
+      type: "actions",
+      headerName: "Actions",
+      width: 150,
+      cellClassName: "actions",
+      getActions: ({ id }) => {
+        return [
+          <GridActionsCellItem
+            icon={<EditIcon />}
+            label="Edit"
+            onClick={() => console.log("Edit", id)}
+            color="inherit"
+          />,
+          <GridActionsCellItem
+            icon={<DeleteIcon />}
+            label="Delete"
+            onClick={() => console.log("Delete", id)}
+            color="inherit"
+          />,
+          <GridActionsCellItem
+            icon={<PrintIcon />}
+            label="Print"
+            onClick={() => console.log("Print", id)}
+            showInMenu
+          />,
+          <GridActionsCellItem
+            icon={<SaveIcon />}
+            label="Save"
+            onClick={() => console.log("Save", id)}
+            showInMenu
+          />,
+        ];
+      },
+    },
+  ];
+
+  const actionRows: GridRowsProp = [
+    {
+      id: 1,
+      title: "Introduction to React",
+      author: "John Doe",
+      status: "Published",
+    },
+    {
+      id: 2,
+      title: "Advanced TypeScript Patterns",
+      author: "Jane Smith",
+      status: "Draft",
+    },
+    {
+      id: 3,
+      title: "Material UI Best Practices",
+      author: "Bob Johnson",
+      status: "Review",
+    },
+    {
+      id: 4,
+      title: "State Management with Redux",
+      author: "Alice Brown",
+      status: "Published",
+    },
+    {
+      id: 5,
+      title: "Building Scalable Applications",
+      author: "Charlie Wilson",
+      status: "Draft",
+    },
+  ];
+
+  // Styled grid data
+  const styledColumns = basicColumns;
+  const styledRows = basicRows;
 
   return (
     <ThemeProvider theme={theme} disableTransitionOnChange>
@@ -3408,6 +3691,353 @@ function App() {
               </Box>
             </Box>
           </Box>
+          <Divider sx={{ my: 4 }} />
+          <Box sx={{ my: 4 }}>
+            <Typography variant="h4" component="h2" gutterBottom>
+              Icons
+            </Typography>
+            <Box sx={{ mb: 4 }}>
+              <Typography variant="h6" gutterBottom>
+                Icon Sizes
+              </Typography>
+              <Stack spacing={2}>
+                <Box>
+                  <Typography variant="subtitle2" gutterBottom>
+                    Font size variants:
+                  </Typography>
+                  <Stack direction="row" spacing={3} alignItems="center">
+                    <HomeIcon fontSize="small" />
+                    <HomeIcon fontSize="medium" />
+                    <HomeIcon fontSize="large" />
+                    <HomeIcon sx={{ fontSize: 40 }} />
+                    <HomeIcon sx={{ fontSize: 50 }} />
+                  </Stack>
+                </Box>
+                <Box>
+                  <Typography variant="subtitle2" gutterBottom sx={{ mt: 2 }}>
+                    With labels:
+                  </Typography>
+                  <Stack direction="row" spacing={3} alignItems="center">
+                    <Box sx={{ textAlign: "center" }}>
+                      <HomeIcon fontSize="small" />
+                      <Typography variant="caption" display="block">
+                        small
+                      </Typography>
+                    </Box>
+                    <Box sx={{ textAlign: "center" }}>
+                      <HomeIcon fontSize="medium" />
+                      <Typography variant="caption" display="block">
+                        medium
+                      </Typography>
+                    </Box>
+                    <Box sx={{ textAlign: "center" }}>
+                      <HomeIcon fontSize="large" />
+                      <Typography variant="caption" display="block">
+                        large
+                      </Typography>
+                    </Box>
+                    <Box sx={{ textAlign: "center" }}>
+                      <HomeIcon sx={{ fontSize: 40 }} />
+                      <Typography variant="caption" display="block">
+                        40px
+                      </Typography>
+                    </Box>
+                    <Box sx={{ textAlign: "center" }}>
+                      <HomeIcon sx={{ fontSize: 50 }} />
+                      <Typography variant="caption" display="block">
+                        50px
+                      </Typography>
+                    </Box>
+                  </Stack>
+                </Box>
+              </Stack>
+            </Box>
+            <Divider sx={{ my: 3 }} />
+            <Box sx={{ mb: 4 }}>
+              <Typography variant="h6" gutterBottom>
+                Icon Colors
+              </Typography>
+              <Stack spacing={2}>
+                <Stack direction="row" spacing={2} alignItems="center">
+                  <HomeIcon color="inherit" />
+                  <HomeIcon color="action" />
+                  <HomeIcon color="disabled" />
+                  <HomeIcon color="primary" />
+                  <HomeIcon color="secondary" />
+                  <HomeIcon color="error" />
+                  <HomeIcon color="warning" />
+                  <HomeIcon color="info" />
+                  <HomeIcon color="success" />
+                </Stack>
+                <Box>
+                  <Typography variant="subtitle2" gutterBottom sx={{ mt: 2 }}>
+                    With labels:
+                  </Typography>
+                  <Stack direction="row" spacing={2} alignItems="center">
+                    <Box sx={{ textAlign: "center" }}>
+                      <HomeIcon color="inherit" />
+                      <Typography variant="caption" display="block">
+                        inherit
+                      </Typography>
+                    </Box>
+                    <Box sx={{ textAlign: "center" }}>
+                      <HomeIcon color="action" />
+                      <Typography variant="caption" display="block">
+                        action
+                      </Typography>
+                    </Box>
+                    <Box sx={{ textAlign: "center" }}>
+                      <HomeIcon color="disabled" />
+                      <Typography variant="caption" display="block">
+                        disabled
+                      </Typography>
+                    </Box>
+                    <Box sx={{ textAlign: "center" }}>
+                      <HomeIcon color="primary" />
+                      <Typography variant="caption" display="block">
+                        primary
+                      </Typography>
+                    </Box>
+                    <Box sx={{ textAlign: "center" }}>
+                      <HomeIcon color="secondary" />
+                      <Typography variant="caption" display="block">
+                        secondary
+                      </Typography>
+                    </Box>
+                    <Box sx={{ textAlign: "center" }}>
+                      <HomeIcon color="error" />
+                      <Typography variant="caption" display="block">
+                        error
+                      </Typography>
+                    </Box>
+                    <Box sx={{ textAlign: "center" }}>
+                      <HomeIcon color="warning" />
+                      <Typography variant="caption" display="block">
+                        warning
+                      </Typography>
+                    </Box>
+                    <Box sx={{ textAlign: "center" }}>
+                      <HomeIcon color="info" />
+                      <Typography variant="caption" display="block">
+                        info
+                      </Typography>
+                    </Box>
+                    <Box sx={{ textAlign: "center" }}>
+                      <HomeIcon color="success" />
+                      <Typography variant="caption" display="block">
+                        success
+                      </Typography>
+                    </Box>
+                  </Stack>
+                </Box>
+              </Stack>
+            </Box>
+            <Divider sx={{ my: 3 }} />
+            <Box sx={{ mb: 4 }}>
+              <Typography variant="h6" gutterBottom>
+                Icon Categories
+              </Typography>
+              <Stack spacing={3}>
+                <Box>
+                  <Typography variant="subtitle2" gutterBottom>
+                    Navigation:
+                  </Typography>
+                  <Stack direction="row" spacing={2}>
+                    <HomeIcon />
+                    <SearchIcon />
+                    <SettingsIcon />
+                    <MoreVertIcon />
+                    <MoreHorizIcon />
+                    <ExpandMoreIcon />
+                    <KeyboardArrowDownIcon />
+                    <CloseIcon />
+                  </Stack>
+                </Box>
+                <Box>
+                  <Typography variant="subtitle2" gutterBottom>
+                    Communication:
+                  </Typography>
+                  <Stack direction="row" spacing={2}>
+                    <EmailIcon />
+                    <PhoneIcon />
+                    <NotificationsIcon />
+                    <SendIcon />
+                    <ShareIcon />
+                  </Stack>
+                </Box>
+                <Box>
+                  <Typography variant="subtitle2" gutterBottom>
+                    Status & Alerts:
+                  </Typography>
+                  <Stack direction="row" spacing={2}>
+                    <CheckCircleIcon color="success" />
+                    <ErrorOutlineIcon color="error" />
+                    <WarningIcon color="warning" />
+                    <InfoIcon color="info" />
+                    <DoneIcon color="success" />
+                  </Stack>
+                </Box>
+                <Box>
+                  <Typography variant="subtitle2" gutterBottom>
+                    Actions:
+                  </Typography>
+                  <Stack direction="row" spacing={2}>
+                    <AddIcon />
+                    <DeleteIcon />
+                    <EditIcon />
+                    <SaveIcon />
+                    <DownloadIcon />
+                    <PrintIcon />
+                    <RefreshIcon />
+                    <CloudUploadIcon />
+                  </Stack>
+                </Box>
+                <Box>
+                  <Typography variant="subtitle2" gutterBottom>
+                    Media & Files:
+                  </Typography>
+                  <Stack direction="row" spacing={2}>
+                    <FolderIcon />
+                    <AssignmentIcon />
+                    <PageviewIcon />
+                    <ZoomInIcon />
+                    <ZoomOutIcon />
+                    <FullscreenIcon />
+                  </Stack>
+                </Box>
+                <Box>
+                  <Typography variant="subtitle2" gutterBottom>
+                    User & Social:
+                  </Typography>
+                  <Stack direction="row" spacing={2}>
+                    <PersonIcon />
+                    <GroupIcon />
+                    <FaceIcon />
+                    <AccountCircle />
+                    <FavoriteIcon />
+                    <StarIcon />
+                    <BookmarkIcon />
+                  </Stack>
+                </Box>
+                <Box>
+                  <Typography variant="subtitle2" gutterBottom>
+                    Date & Time:
+                  </Typography>
+                  <Stack direction="row" spacing={2}>
+                    <CalendarTodayIcon />
+                    <AccessTimeIcon />
+                  </Stack>
+                </Box>
+                <Box>
+                  <Typography variant="subtitle2" gutterBottom>
+                    Location & Shopping:
+                  </Typography>
+                  <Stack direction="row" spacing={2}>
+                    <LocationOnIcon />
+                    <ShoppingCartIcon />
+                    <TagIcon />
+                  </Stack>
+                </Box>
+              </Stack>
+            </Box>
+            <Divider sx={{ my: 3 }} />
+            <Box sx={{ mb: 4 }}>
+              <Typography variant="h6" gutterBottom>
+                Icons in Context
+              </Typography>
+              <Stack spacing={3}>
+                <Box>
+                  <Typography variant="subtitle2" gutterBottom>
+                    In buttons:
+                  </Typography>
+                  <Stack direction="row" spacing={2}>
+                    <Button startIcon={<SaveIcon />}>Save</Button>
+                    <Button variant="contained" startIcon={<SendIcon />}>
+                      Send
+                    </Button>
+                    <Button
+                      variant="outlined"
+                      color="error"
+                      startIcon={<DeleteIcon />}
+                    >
+                      Delete
+                    </Button>
+                  </Stack>
+                </Box>
+                <Box>
+                  <Typography variant="subtitle2" gutterBottom>
+                    As icon buttons:
+                  </Typography>
+                  <Stack direction="row" spacing={1}>
+                    <IconButton>
+                      <HomeIcon />
+                    </IconButton>
+                    <IconButton color="primary">
+                      <NotificationsIcon />
+                    </IconButton>
+                    <IconButton color="secondary">
+                      <SettingsIcon />
+                    </IconButton>
+                    <IconButton disabled>
+                      <DeleteIcon />
+                    </IconButton>
+                    <IconButton size="small">
+                      <MoreVertIcon fontSize="small" />
+                    </IconButton>
+                    <IconButton size="large">
+                      <RefreshIcon fontSize="large" />
+                    </IconButton>
+                  </Stack>
+                </Box>
+                <Box>
+                  <Typography variant="subtitle2" gutterBottom>
+                    With hover effects:
+                  </Typography>
+                  <Stack direction="row" spacing={2}>
+                    <IconButton
+                      sx={{
+                        "&:hover": {
+                          color: "primary.main",
+                        },
+                      }}
+                    >
+                      <HomeIcon />
+                    </IconButton>
+                    <IconButton
+                      sx={{
+                        "&:hover": {
+                          color: "error.main",
+                        },
+                      }}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                    <IconButton
+                      sx={{
+                        "&:hover": {
+                          color: "success.main",
+                        },
+                      }}
+                    >
+                      <CheckCircleIcon />
+                    </IconButton>
+                  </Stack>
+                </Box>
+                <Box>
+                  <Typography variant="subtitle2" gutterBottom>
+                    Custom colors:
+                  </Typography>
+                  <Stack direction="row" spacing={2}>
+                    <HomeIcon sx={{ color: "#ff6b6b" }} />
+                    <SettingsIcon sx={{ color: "#4ecdc4" }} />
+                    <NotificationsIcon sx={{ color: "#45b7d1" }} />
+                    <EmailIcon sx={{ color: "#96ceb4" }} />
+                    <StarIcon sx={{ color: "#feca57" }} />
+                  </Stack>
+                </Box>
+              </Stack>
+            </Box>
+          </Box>
         </Container>
         <Container maxWidth="lg">
           <Box
@@ -3668,6 +4298,145 @@ function App() {
                     />
                   </Box>
                 </Stack>
+              </Box>
+            </Box>
+            <Divider sx={{ my: 4 }} />
+            <Box sx={{ my: 4 }}>
+              <Typography variant="h4" component="h2" gutterBottom>
+                Data Grid
+              </Typography>
+              <Box sx={{ mb: 4 }}>
+                <Typography variant="h6" gutterBottom>
+                  Basic Data Grid
+                </Typography>
+                <Box sx={{ height: 400, width: "100%" }}>
+                  <DataGrid
+                    rows={basicRows}
+                    columns={basicColumns}
+                    initialState={{
+                      pagination: {
+                        paginationModel: { pageSize: 5 },
+                      },
+                    }}
+                    pageSizeOptions={[5, 10, 20]}
+                    checkboxSelection
+                    disableRowSelectionOnClick
+                  />
+                </Box>
+              </Box>
+              <Divider sx={{ my: 3 }} />
+              <Box sx={{ mb: 4 }}>
+                <Typography variant="h6" gutterBottom>
+                  Data Grid with Custom Cell Renderers
+                </Typography>
+                <Box sx={{ height: 400, width: "100%" }}>
+                  <DataGrid
+                    rows={customRows}
+                    columns={customColumns}
+                    initialState={{
+                      pagination: {
+                        paginationModel: { pageSize: 5 },
+                      },
+                    }}
+                    pageSizeOptions={[5, 10, 20]}
+                  />
+                </Box>
+              </Box>
+              <Divider sx={{ my: 3 }} />
+              <Box sx={{ mb: 4 }}>
+                <Typography variant="h6" gutterBottom>
+                  Data Grid with Toolbar
+                </Typography>
+                <Box sx={{ height: 400, width: "100%" }}>
+                  <DataGrid
+                    rows={toolbarRows}
+                    columns={toolbarColumns}
+                    slots={{
+                      toolbar: GridToolbar,
+                    }}
+                    initialState={{
+                      pagination: {
+                        paginationModel: { pageSize: 10 },
+                      },
+                    }}
+                    pageSizeOptions={[5, 10, 20, 50]}
+                    checkboxSelection
+                    disableRowSelectionOnClick
+                  />
+                </Box>
+              </Box>
+              <Divider sx={{ my: 3 }} />
+              <Box sx={{ mb: 4 }}>
+                <Typography variant="h6" gutterBottom>
+                  Data Grid with Dense Height
+                </Typography>
+                <Box sx={{ height: 400, width: "100%" }}>
+                  <DataGrid
+                    rows={denseRows}
+                    columns={denseColumns}
+                    density="compact"
+                    initialState={{
+                      pagination: {
+                        paginationModel: { pageSize: 10 },
+                      },
+                    }}
+                    pageSizeOptions={[10, 20, 50]}
+                    checkboxSelection
+                  />
+                </Box>
+              </Box>
+              <Divider sx={{ my: 3 }} />
+              <Box sx={{ mb: 4 }}>
+                <Typography variant="h6" gutterBottom>
+                  Data Grid with Row Actions
+                </Typography>
+                <Box sx={{ height: 400, width: "100%" }}>
+                  <DataGrid
+                    rows={actionRows}
+                    columns={actionColumns}
+                    initialState={{
+                      pagination: {
+                        paginationModel: { pageSize: 5 },
+                      },
+                    }}
+                    pageSizeOptions={[5, 10, 20]}
+                  />
+                </Box>
+              </Box>
+              <Divider sx={{ my: 3 }} />
+              <Box sx={{ mb: 4 }}>
+                <Typography variant="h6" gutterBottom>
+                  Data Grid with Custom Styling
+                </Typography>
+                <Box sx={{ height: 400, width: "100%" }}>
+                  <DataGrid
+                    rows={styledRows}
+                    columns={styledColumns}
+                    initialState={{
+                      pagination: {
+                        paginationModel: { pageSize: 5 },
+                      },
+                    }}
+                    pageSizeOptions={[5, 10, 20]}
+                    getRowClassName={(params: GridRowParams) =>
+                      Number(params.id) % 2 === 0 ? "even" : "odd"
+                    }
+                    sx={{
+                      "& .even": {
+                        backgroundColor: (theme) =>
+                          theme.palette.mode === "light"
+                            ? "rgba(0, 0, 0, 0.02)"
+                            : "rgba(255, 255, 255, 0.02)",
+                      },
+                      "& .odd": {
+                        backgroundColor: (theme) =>
+                          theme.palette.mode === "light"
+                            ? "rgba(0, 0, 0, 0.04)"
+                            : "rgba(255, 255, 255, 0.04)",
+                      },
+                    }}
+                  />
+                </Box>
               </Box>
             </Box>
           </LocalizationProvider>
