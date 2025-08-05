@@ -1,20 +1,20 @@
 import { createTheme } from "@mui/material/styles";
 import type {} from "@mui/material/themeCssVarsAugmentation";
-import { buttonTheme } from "./theme/components/button";
-import { textFieldTheme } from "./theme/components/text-field";
-import { selectTheme } from "./theme/components/select";
-import { autocompleteTheme } from "./theme/components/autocomplete";
-import { chipTheme } from "./theme/components/chip";
-import { avatarTheme } from "./theme/components/avatar";
-import { menuTheme } from "./theme/components/menu";
-import { tableTheme } from "./theme/components/table";
-import { cardTheme } from "./theme/components/card";
-import { dialogTheme } from "./theme/components/dialog";
-import { datePickerTheme } from "./theme/components/date-picker";
-import { svgIconTheme } from "./theme/components/svg-icon";
-import { dataGridTheme } from "./theme/components/data-grid";
-import { alertTheme } from "./theme/components/alert";
-import { treeViewTheme } from "./theme/components/tree-view";
+import { buttonTheme } from "./components/button";
+import { textFieldTheme } from "./components/text-field";
+import { selectTheme } from "./components/select";
+import { autocompleteTheme } from "./components/autocomplete";
+import { chipTheme } from "./components/chip";
+import { avatarTheme } from "./components/avatar";
+import { menuTheme } from "./components/menu";
+import { tableTheme } from "./components/table";
+import { cardTheme } from "./components/card";
+import { dialogTheme } from "./components/dialog";
+import { datePickerTheme } from "./components/date-picker";
+import { svgIconTheme } from "./components/svg-icon";
+import { dataGridTheme } from "./components/data-grid";
+import { alertTheme } from "./components/alert";
+import { treeViewTheme } from "./components/tree-view";
 
 // Augment the palette to include custom 'text' property
 declare module "@mui/material/styles" {

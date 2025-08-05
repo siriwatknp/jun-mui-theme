@@ -124,7 +124,7 @@ import { RichTreeView } from "@mui/x-tree-view/RichTreeView";
 import { TreeItem } from "@mui/x-tree-view/TreeItem";
 import type { TreeViewBaseItem } from "@mui/x-tree-view/models";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import theme from "./theme";
+import theme from "./theme/theme";
 
 function ColorSchemeToggle() {
   const { mode, setMode } = useColorScheme();
@@ -146,7 +146,7 @@ const SlideTransition = React.forwardRef(function Transition(
   props: TransitionProps & {
     children: React.ReactElement;
   },
-  ref: React.Ref<unknown>,
+  ref: React.Ref<unknown>
 ) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -292,8 +292,8 @@ function App() {
             params.value === "Active"
               ? "success"
               : params.value === "Pending"
-                ? "warning"
-                : "default"
+              ? "warning"
+              : "default"
           }
           size="small"
           variant="outlined"
@@ -402,7 +402,7 @@ function App() {
     startDate: new Date(
       2020 + Math.floor(Math.random() * 4),
       Math.floor(Math.random() * 12),
-      Math.floor(Math.random() * 28) + 1,
+      Math.floor(Math.random() * 28) + 1
     ).toLocaleDateString(),
   }));
 
@@ -677,8 +677,8 @@ function App() {
                             size === "small"
                               ? "small"
                               : size === "large"
-                                ? "large"
-                                : "medium"
+                              ? "large"
+                              : "medium"
                           }
                         />
                       </Button>
@@ -695,8 +695,8 @@ function App() {
                             size === "small"
                               ? "small"
                               : size === "large"
-                                ? "large"
-                                : "medium"
+                              ? "large"
+                              : "medium"
                           }
                         />
                       </Button>
@@ -1470,7 +1470,7 @@ function App() {
               </Typography>
               <Autocomplete
                 options={groupedOptions.sort(
-                  (a, b) => -b.category.localeCompare(a.category),
+                  (a, b) => -b.category.localeCompare(a.category)
                 )}
                 groupBy={(option) => option.category}
                 getOptionLabel={(option) => option.title}
@@ -3075,7 +3075,7 @@ function App() {
                         </Button>
                       </CardActions>
                     </Card>
-                  ),
+                  )
                 )}
               </Box>
             </Box>
@@ -3343,7 +3343,7 @@ function App() {
                         () => `Cras mattis consectetur purus sit amet fermentum.
         Cras justo odio, dapibus ac facilisis in, egestas eget quam.
         Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-        Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`,
+        Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`
                       )
                       .join("\n\n")}
                   </DialogContentText>
@@ -4751,7 +4751,7 @@ function App() {
                     <Button
                       onClick={() => {
                         setExpandedTreeItems((oldExpanded) =>
-                          oldExpanded.length === 0 ? ["1", "5", "6", "7"] : [],
+                          oldExpanded.length === 0 ? ["1", "5", "6", "7"] : []
                         );
                       }}
                     >
