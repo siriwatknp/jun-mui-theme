@@ -19,6 +19,7 @@ export const textFieldTheme: ThemeOptions["components"] = {
                   marginBottom: "0.25rem",
                   maxWidth: "unset",
                   fontWeight: 500,
+                  lineHeight: 1.5,
                   color: (theme.vars || theme).palette.text.primary,
                 },
               "& .MuiOutlinedInput-input:where(input)": {
@@ -39,6 +40,12 @@ export const textFieldTheme: ThemeOptions["components"] = {
                 transition: "none",
                 "& legend": {
                   width: 0,
+                },
+              },
+              "& .MuiIconButton-root": {
+                "&:hover": {
+                  color: (theme.vars || theme).palette.text.primary,
+                  backgroundColor: "transparent",
                 },
               },
             },

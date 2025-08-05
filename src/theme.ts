@@ -10,6 +10,7 @@ import { menuTheme } from "./theme/components/menu";
 import { tableTheme } from "./theme/components/table";
 import { cardTheme } from "./theme/components/card";
 import { dialogTheme } from "./theme/components/dialog";
+import { datePickerTheme } from "./theme/components/date-picker";
 
 // Augment the palette to include custom 'text' property
 declare module "@mui/material/styles" {
@@ -120,6 +121,7 @@ const theme = createTheme({
     ...tableTheme,
     ...cardTheme,
     ...dialogTheme,
+    ...datePickerTheme,
   },
   typography: {
     fontFamily: [

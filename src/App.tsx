@@ -83,6 +83,14 @@ import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import React from "react";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
+import { TimePicker } from "@mui/x-date-pickers/TimePicker";
+import { DateRangePicker } from "@mui/x-date-pickers-pro/DateRangePicker";
+import { SingleInputDateRangeField } from "@mui/x-date-pickers-pro/SingleInputDateRangeField";
+import dayjs from "dayjs";
 import theme from "./theme";
 
 function ColorSchemeToggle() {
@@ -105,7 +113,7 @@ const SlideTransition = React.forwardRef(function Transition(
   props: TransitionProps & {
     children: React.ReactElement;
   },
-  ref: React.Ref<unknown>
+  ref: React.Ref<unknown>,
 ) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -377,8 +385,8 @@ function App() {
                             size === "small"
                               ? "small"
                               : size === "large"
-                              ? "large"
-                              : "medium"
+                                ? "large"
+                                : "medium"
                           }
                         />
                       </Button>
@@ -395,8 +403,8 @@ function App() {
                             size === "small"
                               ? "small"
                               : size === "large"
-                              ? "large"
-                              : "medium"
+                                ? "large"
+                                : "medium"
                           }
                         />
                       </Button>
@@ -1187,7 +1195,7 @@ function App() {
               </Typography>
               <Autocomplete
                 options={groupedOptions.sort(
-                  (a, b) => -b.category.localeCompare(a.category)
+                  (a, b) => -b.category.localeCompare(a.category),
                 )}
                 groupBy={(option) => option.category}
                 getOptionLabel={(option) => option.title}
@@ -2792,7 +2800,7 @@ function App() {
                         </Button>
                       </CardActions>
                     </Card>
-                  )
+                  ),
                 )}
               </Box>
             </Box>
@@ -3060,7 +3068,7 @@ function App() {
                         () => `Cras mattis consectetur purus sit amet fermentum.
         Cras justo odio, dapibus ac facilisis in, egestas eget quam.
         Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-        Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`
+        Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`,
                       )
                       .join("\n\n")}
                   </DialogContentText>
@@ -3415,6 +3423,254 @@ function App() {
             </Typography>
             <ColorSchemeToggle />
           </Box>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <Box sx={{ my: 4 }}>
+              <Typography variant="h4" component="h2" gutterBottom>
+                Date & Time Pickers
+              </Typography>
+              <Box sx={{ mb: 4 }}>
+                <Typography variant="h6" gutterBottom>
+                  Basic Date Pickers
+                </Typography>
+                <Stack spacing={3}>
+                  <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
+                    <DatePicker
+                      label="Basic Date Picker"
+                      defaultValue={dayjs()}
+                      slotProps={{
+                        textField: {
+                          sx: { minWidth: 200 },
+                        },
+                      }}
+                    />
+                    <DatePicker
+                      label="Date Picker (Small)"
+                      defaultValue={dayjs()}
+                      slotProps={{
+                        textField: {
+                          size: "small",
+                          sx: { minWidth: 200 },
+                        },
+                      }}
+                    />
+                    <DatePicker
+                      label="Disabled Date Picker"
+                      defaultValue={dayjs()}
+                      disabled
+                      slotProps={{
+                        textField: {
+                          sx: { minWidth: 200 },
+                        },
+                      }}
+                    />
+                  </Box>
+                </Stack>
+              </Box>
+              <Divider sx={{ my: 3 }} />
+              <Box sx={{ mb: 4 }}>
+                <Typography variant="h6" gutterBottom>
+                  Time Pickers
+                </Typography>
+                <Stack spacing={3}>
+                  <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
+                    <TimePicker
+                      label="Basic Time Picker"
+                      defaultValue={dayjs()}
+                      slotProps={{
+                        textField: {
+                          sx: { minWidth: 200 },
+                        },
+                      }}
+                    />
+                    <TimePicker
+                      label="Time Picker (Small)"
+                      defaultValue={dayjs()}
+                      slotProps={{
+                        textField: {
+                          size: "small",
+                          sx: { minWidth: 200 },
+                        },
+                      }}
+                    />
+                    <TimePicker
+                      label="24h Format"
+                      defaultValue={dayjs()}
+                      ampm={false}
+                      slotProps={{
+                        textField: {
+                          sx: { minWidth: 200 },
+                        },
+                      }}
+                    />
+                  </Box>
+                </Stack>
+              </Box>
+              <Divider sx={{ my: 3 }} />
+              <Box sx={{ mb: 4 }}>
+                <Typography variant="h6" gutterBottom>
+                  Date Time Pickers
+                </Typography>
+                <Stack spacing={3}>
+                  <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
+                    <DateTimePicker
+                      label="Basic Date Time Picker"
+                      defaultValue={dayjs()}
+                      slotProps={{
+                        textField: {
+                          sx: { minWidth: 250 },
+                        },
+                      }}
+                    />
+                    <DateTimePicker
+                      label="Date Time Picker (Small)"
+                      defaultValue={dayjs()}
+                      slotProps={{
+                        textField: {
+                          size: "small",
+                          sx: { minWidth: 250 },
+                        },
+                      }}
+                    />
+                  </Box>
+                </Stack>
+              </Box>
+              <Divider sx={{ my: 3 }} />
+              <Box sx={{ mb: 4 }}>
+                <Typography variant="h6" gutterBottom>
+                  Date Range Picker
+                </Typography>
+                <Stack spacing={3}>
+                  <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
+                    <DateRangePicker
+                      localeText={{ start: "Check-in", end: "Check-out" }}
+                      defaultValue={[dayjs(), dayjs().add(7, "day")]}
+                      slotProps={{
+                        textField: {
+                          sx: { minWidth: 150 },
+                        },
+                      }}
+                    />
+                  </Box>
+                  <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
+                    <DateRangePicker
+                      localeText={{ start: "Start", end: "End" }}
+                      defaultValue={[dayjs(), dayjs().add(14, "day")]}
+                      slotProps={{
+                        textField: {
+                          size: "small",
+                          sx: { minWidth: 150 },
+                        },
+                      }}
+                    />
+                  </Box>
+                </Stack>
+              </Box>
+              <Divider sx={{ my: 3 }} />
+              <Box sx={{ mb: 4 }}>
+                <Typography variant="h6" gutterBottom>
+                  Single Input Date Range
+                </Typography>
+                <Stack spacing={3}>
+                  <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
+                    <SingleInputDateRangeField
+                      label="Date Range"
+                      defaultValue={[dayjs(), dayjs().add(7, "day")]}
+                      sx={{ minWidth: 300 }}
+                    />
+                    <SingleInputDateRangeField
+                      label="Date Range (Small)"
+                      defaultValue={[dayjs(), dayjs().add(7, "day")]}
+                      size="small"
+                      sx={{ minWidth: 300 }}
+                    />
+                  </Box>
+                </Stack>
+              </Box>
+              <Divider sx={{ my: 3 }} />
+              <Box sx={{ mb: 4 }}>
+                <Typography variant="h6" gutterBottom>
+                  Validation States
+                </Typography>
+                <Stack spacing={3}>
+                  <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
+                    <DatePicker
+                      label="Min Date"
+                      defaultValue={dayjs()}
+                      minDate={dayjs()}
+                      slotProps={{
+                        textField: {
+                          helperText: "Cannot select past dates",
+                          sx: { minWidth: 200 },
+                        },
+                      }}
+                    />
+                    <DatePicker
+                      label="Max Date"
+                      defaultValue={dayjs()}
+                      maxDate={dayjs().add(30, "day")}
+                      slotProps={{
+                        textField: {
+                          helperText: "Within 30 days only",
+                          sx: { minWidth: 200 },
+                        },
+                      }}
+                    />
+                    <DatePicker
+                      label="Error State"
+                      defaultValue={dayjs()}
+                      slotProps={{
+                        textField: {
+                          error: true,
+                          helperText: "Invalid date selected",
+                          sx: { minWidth: 200 },
+                        },
+                      }}
+                    />
+                  </Box>
+                </Stack>
+              </Box>
+              <Divider sx={{ my: 3 }} />
+              <Box sx={{ mb: 4 }}>
+                <Typography variant="h6" gutterBottom>
+                  Read-only & Disabled States
+                </Typography>
+                <Stack spacing={3}>
+                  <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
+                    <DatePicker
+                      label="Read-only"
+                      defaultValue={dayjs()}
+                      readOnly
+                      slotProps={{
+                        textField: {
+                          sx: { minWidth: 200 },
+                        },
+                      }}
+                    />
+                    <TimePicker
+                      label="Disabled Time"
+                      defaultValue={dayjs()}
+                      disabled
+                      slotProps={{
+                        textField: {
+                          sx: { minWidth: 200 },
+                        },
+                      }}
+                    />
+                    <DateRangePicker
+                      localeText={{ start: "Check-in", end: "Check-out" }}
+                      defaultValue={[dayjs(), dayjs().add(7, "day")]}
+                      disabled
+                      slotProps={{
+                        textField: {
+                          sx: { minWidth: 150 },
+                        },
+                      }}
+                    />
+                  </Box>
+                </Stack>
+              </Box>
+            </Box>
+          </LocalizationProvider>
         </Container>
       </Box>
     </ThemeProvider>
