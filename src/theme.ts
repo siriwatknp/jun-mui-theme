@@ -14,6 +14,7 @@ import { datePickerTheme } from "./theme/components/date-picker";
 import { svgIconTheme } from "./theme/components/svg-icon";
 import { dataGridTheme } from "./theme/components/data-grid";
 import { alertTheme } from "./theme/components/alert";
+import { treeViewTheme } from "./theme/components/tree-view";
 
 // Augment the palette to include custom 'text' property
 declare module "@mui/material/styles" {
@@ -128,6 +129,7 @@ const theme = createTheme({
     ...svgIconTheme,
     ...dataGridTheme,
     ...alertTheme,
+    ...treeViewTheme,
   },
   typography: {
     fontFamily: [

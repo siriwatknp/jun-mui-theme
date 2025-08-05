@@ -113,13 +113,17 @@ import { SingleInputDateRangeField } from "@mui/x-date-pickers-pro/SingleInputDa
 import dayjs from "dayjs";
 import {
   DataGrid,
-  GridToolbar,
   GridActionsCellItem,
   type GridColDef,
   type GridRowsProp,
   type GridRowParams,
 } from "@mui/x-data-grid";
 import LinearProgress from "@mui/material/LinearProgress";
+import { SimpleTreeView } from "@mui/x-tree-view/SimpleTreeView";
+import { RichTreeView } from "@mui/x-tree-view/RichTreeView";
+import { TreeItem } from "@mui/x-tree-view/TreeItem";
+import type { TreeViewBaseItem } from "@mui/x-tree-view/models";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import theme from "./theme";
 
 function ColorSchemeToggle() {
@@ -161,6 +165,11 @@ function App() {
   const [openConfirm, setOpenConfirm] = React.useState(false);
   const [selectedValue, setSelectedValue] = React.useState("user1@example.com");
   const [scrollType, setScrollType] = React.useState<"paper" | "body">("paper");
+
+  // Tree View state for controlled expansion demo
+  const [expandedTreeItems, setExpandedTreeItems] = React.useState<string[]>([
+    "1",
+  ]);
   const buttonVariants = ["text", "contained", "outlined"] as const;
   const buttonColors = [
     "primary",
@@ -250,7 +259,7 @@ function App() {
       description: "This column has a value getter and is not sortable.",
       sortable: false,
       width: 200,
-      valueGetter: (value, row) =>
+      valueGetter: (_value, row) =>
         `${row.firstName || ""} ${row.lastName || ""}`,
     },
   ];
@@ -811,7 +820,9 @@ function App() {
                   <TextField
                     label="Read Only"
                     defaultValue="Hello World"
-                    inputProps={{ readOnly: true }}
+                    slotProps={{
+                      input: { readOnly: true },
+                    }}
                   />
                 </Box>
               </Stack>
@@ -1193,38 +1204,46 @@ function App() {
                 <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
                   <TextField
                     label="With Icon"
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <AccountCircle />
-                        </InputAdornment>
-                      ),
+                    slotProps={{
+                      input: {
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <AccountCircle />
+                          </InputAdornment>
+                        ),
+                      },
                     }}
                   />
                   <TextField
                     label="Search"
-                    InputProps={{
-                      endAdornment: (
-                        <InputAdornment position="end">
-                          <SearchIcon />
-                        </InputAdornment>
-                      ),
+                    slotProps={{
+                      input: {
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <SearchIcon />
+                          </InputAdornment>
+                        ),
+                      },
                     }}
                   />
                   <TextField
                     label="Amount"
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">$</InputAdornment>
-                      ),
+                    slotProps={{
+                      input: {
+                        startAdornment: (
+                          <InputAdornment position="start">$</InputAdornment>
+                        ),
+                      },
                     }}
                   />
                   <TextField
                     label="Weight"
-                    InputProps={{
-                      endAdornment: (
-                        <InputAdornment position="end">kg</InputAdornment>
-                      ),
+                    slotProps={{
+                      input: {
+                        endAdornment: (
+                          <InputAdornment position="end">kg</InputAdornment>
+                        ),
+                      },
                     }}
                   />
                 </Box>
@@ -1288,14 +1307,16 @@ function App() {
                 <TextField
                   label="Password"
                   type="password"
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton edge="end">
-                          <VisibilityOff />
-                        </IconButton>
-                      </InputAdornment>
-                    ),
+                  slotProps={{
+                    input: {
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton edge="end">
+                            <VisibilityOff />
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    },
                   }}
                 />
               </Box>
@@ -1433,35 +1454,6 @@ function App() {
                   topMovies[3],
                 ]}
                 sx={{ width: "100%", maxWidth: 600 }}
-                renderTags={(value, getTagProps) =>
-                  value.map((option, index) => {
-                    const { key, ...tagProps } = getTagProps({ index });
-                    const colors = [
-                      "primary",
-                      "secondary",
-                      "success",
-                      "error",
-                      "warning",
-                      "info",
-                    ];
-                    const color = colors[index % colors.length] as
-                      | "primary"
-                      | "secondary"
-                      | "success"
-                      | "error"
-                      | "warning"
-                      | "info";
-                    return (
-                      <Chip
-                        variant="outlined"
-                        label={option.title}
-                        key={key}
-                        color={color}
-                        {...tagProps}
-                      />
-                    );
-                  })
-                }
                 renderInput={(params) => (
                   <TextField
                     {...params}
@@ -3446,7 +3438,7 @@ function App() {
               {/* Slide Transition Dialog */}
               <Dialog
                 open={openTransition}
-                TransitionComponent={SlideTransition}
+                slots={{ transition: SlideTransition }}
                 keepMounted
                 onClose={() => setOpenTransition(false)}
                 aria-describedby="slide-dialog-description"
@@ -3472,7 +3464,7 @@ function App() {
                 fullScreen
                 open={openFullScreen}
                 onClose={() => setOpenFullScreen(false)}
-                TransitionComponent={SlideTransition}
+                slots={{ transition: SlideTransition }}
               >
                 <AppBar sx={{ position: "relative" }}>
                   <Toolbar>
@@ -3504,7 +3496,7 @@ function App() {
                   <Typography variant="h4" gutterBottom>
                     Full Screen Content
                   </Typography>
-                  <Typography paragraph>
+                  <Typography sx={{ mb: 2 }}>
                     This is a full-screen dialog. It's useful for complex forms,
                     editors, or when you need maximum screen space.
                   </Typography>
@@ -3608,7 +3600,7 @@ function App() {
               <Typography variant="h6" gutterBottom>
                 Dialog States & Variations
               </Typography>
-              <Typography variant="body2" color="text.secondary" paragraph>
+              <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
                 Selected value: {selectedValue}
               </Typography>
               <Stack spacing={2}>
@@ -4352,7 +4344,7 @@ function App() {
                     rows={toolbarRows}
                     columns={toolbarColumns}
                     slots={{
-                      toolbar: GridToolbar,
+                      toolbar: () => null,
                     }}
                     initialState={{
                       pagination: {
@@ -4436,6 +4428,404 @@ function App() {
                       },
                     }}
                   />
+                </Box>
+              </Box>
+            </Box>
+            <Divider sx={{ my: 4 }} />
+            <Box sx={{ my: 4 }}>
+              <Typography variant="h4" component="h2" gutterBottom>
+                Tree View
+              </Typography>
+              <Box sx={{ mb: 4 }}>
+                <Typography variant="h6" gutterBottom>
+                  Simple Tree View - Basic
+                </Typography>
+                <Box sx={{ minHeight: 352, minWidth: 300 }}>
+                  <SimpleTreeView>
+                    <TreeItem itemId="grid" label="Data Grid">
+                      <TreeItem
+                        itemId="grid-community"
+                        label="@mui/x-data-grid"
+                      />
+                      <TreeItem
+                        itemId="grid-pro"
+                        label="@mui/x-data-grid-pro"
+                      />
+                      <TreeItem
+                        itemId="grid-premium"
+                        label="@mui/x-data-grid-premium"
+                      />
+                    </TreeItem>
+                    <TreeItem itemId="pickers" label="Date and Time Pickers">
+                      <TreeItem
+                        itemId="pickers-community"
+                        label="@mui/x-date-pickers"
+                      />
+                      <TreeItem
+                        itemId="pickers-pro"
+                        label="@mui/x-date-pickers-pro"
+                      />
+                    </TreeItem>
+                    <TreeItem itemId="charts" label="Charts">
+                      <TreeItem
+                        itemId="charts-community"
+                        label="@mui/x-charts"
+                      />
+                      <TreeItem itemId="charts-pro" label="@mui/x-charts-pro" />
+                    </TreeItem>
+                    <TreeItem itemId="tree-view" label="Tree View">
+                      <TreeItem
+                        itemId="tree-view-community"
+                        label="@mui/x-tree-view"
+                      />
+                      <TreeItem
+                        itemId="tree-view-pro"
+                        label="@mui/x-tree-view-pro"
+                      />
+                    </TreeItem>
+                  </SimpleTreeView>
+                </Box>
+              </Box>
+              <Divider sx={{ my: 3 }} />
+              <Box sx={{ mb: 4 }}>
+                <Typography variant="h6" gutterBottom>
+                  Simple Tree View with Icons
+                </Typography>
+                <Box sx={{ minHeight: 300, minWidth: 350 }}>
+                  <SimpleTreeView
+                    slots={{
+                      collapseIcon: ExpandMoreIcon,
+                      expandIcon: ChevronRightIcon,
+                      endIcon: () => <div style={{ width: 20 }} />,
+                    }}
+                  >
+                    <TreeItem itemId="applications" label="Applications">
+                      <TreeItem itemId="calendar" label="Calendar" />
+                      <TreeItem itemId="chrome" label="Chrome" />
+                      <TreeItem itemId="webstorm" label="Webstorm" />
+                    </TreeItem>
+                    <TreeItem itemId="documents" label="Documents">
+                      <TreeItem itemId="material-ui" label="Material UI">
+                        <TreeItem itemId="src" label="src">
+                          <TreeItem itemId="index.js" label="index.js" />
+                          <TreeItem
+                            itemId="tree-view.js"
+                            label="tree-view.js"
+                          />
+                        </TreeItem>
+                      </TreeItem>
+                    </TreeItem>
+                  </SimpleTreeView>
+                </Box>
+              </Box>
+              <Divider sx={{ my: 3 }} />
+              <Box sx={{ mb: 4 }}>
+                <Typography variant="h6" gutterBottom>
+                  Simple Tree View with Selection
+                </Typography>
+                <Stack spacing={3}>
+                  <Box>
+                    <Typography variant="subtitle2" gutterBottom>
+                      Single Select:
+                    </Typography>
+                    <Box sx={{ minHeight: 220, minWidth: 300 }}>
+                      <SimpleTreeView
+                        slots={{
+                          collapseIcon: ExpandMoreIcon,
+                          expandIcon: ChevronRightIcon,
+                        }}
+                      >
+                        <TreeItem itemId="1" label="Applications">
+                          <TreeItem itemId="2" label="Calendar" />
+                          <TreeItem itemId="3" label="Chrome" />
+                          <TreeItem itemId="4" label="Webstorm" />
+                        </TreeItem>
+                        <TreeItem itemId="5" label="Documents">
+                          <TreeItem itemId="6" label="Material UI">
+                            <TreeItem itemId="7" label="src">
+                              <TreeItem itemId="8" label="index.js" />
+                              <TreeItem itemId="9" label="tree-view.js" />
+                            </TreeItem>
+                          </TreeItem>
+                        </TreeItem>
+                      </SimpleTreeView>
+                    </Box>
+                  </Box>
+                  <Box>
+                    <Typography variant="subtitle2" gutterBottom>
+                      Multi Select:
+                    </Typography>
+                    <Box sx={{ minHeight: 220, minWidth: 300 }}>
+                      <SimpleTreeView
+                        multiSelect
+                        slots={{
+                          collapseIcon: ExpandMoreIcon,
+                          expandIcon: ChevronRightIcon,
+                        }}
+                      >
+                        <TreeItem itemId="10" label="Applications">
+                          <TreeItem itemId="11" label="Calendar" />
+                          <TreeItem itemId="12" label="Chrome" />
+                          <TreeItem itemId="13" label="Webstorm" />
+                        </TreeItem>
+                        <TreeItem itemId="14" label="Documents">
+                          <TreeItem itemId="15" label="Material UI">
+                            <TreeItem itemId="16" label="src">
+                              <TreeItem itemId="17" label="index.js" />
+                              <TreeItem itemId="18" label="tree-view.js" />
+                            </TreeItem>
+                          </TreeItem>
+                        </TreeItem>
+                      </SimpleTreeView>
+                    </Box>
+                  </Box>
+                </Stack>
+              </Box>
+              <Divider sx={{ my: 3 }} />
+              <Box sx={{ mb: 4 }}>
+                <Typography variant="h6" gutterBottom>
+                  Simple Tree View with Disabled Items
+                </Typography>
+                <Box sx={{ minHeight: 240, minWidth: 300 }}>
+                  <SimpleTreeView
+                    slots={{
+                      collapseIcon: ExpandMoreIcon,
+                      expandIcon: ChevronRightIcon,
+                    }}
+                    disabledItemsFocusable
+                  >
+                    <TreeItem itemId="19" label="Applications">
+                      <TreeItem itemId="20" label="Calendar" />
+                      <TreeItem itemId="21" label="Chrome" disabled />
+                      <TreeItem itemId="22" label="Webstorm" />
+                    </TreeItem>
+                    <TreeItem itemId="23" label="Documents" disabled>
+                      <TreeItem itemId="24" label="Material UI">
+                        <TreeItem itemId="25" label="src">
+                          <TreeItem itemId="26" label="index.js" />
+                          <TreeItem itemId="27" label="tree-view.js" />
+                        </TreeItem>
+                      </TreeItem>
+                    </TreeItem>
+                    <TreeItem itemId="28" label="Downloads">
+                      <TreeItem itemId="29" label="November.pdf" />
+                      <TreeItem itemId="30" label="December.pdf" disabled />
+                    </TreeItem>
+                  </SimpleTreeView>
+                </Box>
+              </Box>
+              <Divider sx={{ my: 3 }} />
+              <Box sx={{ mb: 4 }}>
+                <Typography variant="h6" gutterBottom>
+                  Rich Tree View - Basic
+                </Typography>
+                {(() => {
+                  const MUI_X_PRODUCTS: TreeViewBaseItem[] = [
+                    {
+                      id: "grid",
+                      label: "Data Grid",
+                      children: [
+                        { id: "grid-community", label: "@mui/x-data-grid" },
+                        { id: "grid-pro", label: "@mui/x-data-grid-pro" },
+                        {
+                          id: "grid-premium",
+                          label: "@mui/x-data-grid-premium",
+                        },
+                      ],
+                    },
+                    {
+                      id: "pickers",
+                      label: "Date and Time Pickers",
+                      children: [
+                        {
+                          id: "pickers-community",
+                          label: "@mui/x-date-pickers",
+                        },
+                        { id: "pickers-pro", label: "@mui/x-date-pickers-pro" },
+                      ],
+                    },
+                    {
+                      id: "charts",
+                      label: "Charts",
+                      children: [
+                        { id: "charts-community", label: "@mui/x-charts" },
+                        { id: "charts-pro", label: "@mui/x-charts-pro" },
+                      ],
+                    },
+                    {
+                      id: "tree-view",
+                      label: "Tree View",
+                      children: [
+                        {
+                          id: "tree-view-community",
+                          label: "@mui/x-tree-view",
+                        },
+                        { id: "tree-view-pro", label: "@mui/x-tree-view-pro" },
+                      ],
+                    },
+                  ];
+                  return (
+                    <Box sx={{ minHeight: 352, minWidth: 300 }}>
+                      <RichTreeView items={MUI_X_PRODUCTS} />
+                    </Box>
+                  );
+                })()}
+              </Box>
+              <Divider sx={{ my: 3 }} />
+              <Box sx={{ mb: 4 }}>
+                <Typography variant="h6" gutterBottom>
+                  Rich Tree View - File Explorer
+                </Typography>
+                {(() => {
+                  const FILE_EXPLORER_DATA: TreeViewBaseItem[] = [
+                    {
+                      id: "src",
+                      label: "src",
+                      children: [
+                        {
+                          id: "components",
+                          label: "components",
+                          children: [
+                            { id: "Button.tsx", label: "Button.tsx" },
+                            { id: "Card.tsx", label: "Card.tsx" },
+                            { id: "Dialog.tsx", label: "Dialog.tsx" },
+                            { id: "TreeView.tsx", label: "TreeView.tsx" },
+                          ],
+                        },
+                        {
+                          id: "theme",
+                          label: "theme",
+                          children: [
+                            { id: "index.ts", label: "index.ts" },
+                            { id: "palette.ts", label: "palette.ts" },
+                            { id: "typography.ts", label: "typography.ts" },
+                          ],
+                        },
+                        {
+                          id: "utils",
+                          label: "utils",
+                          children: [
+                            { id: "formatters.ts", label: "formatters.ts" },
+                            { id: "validators.ts", label: "validators.ts" },
+                          ],
+                        },
+                        { id: "App.tsx", label: "App.tsx" },
+                        { id: "main.tsx", label: "main.tsx" },
+                      ],
+                    },
+                    {
+                      id: "public",
+                      label: "public",
+                      children: [
+                        { id: "favicon.ico", label: "favicon.ico" },
+                        { id: "index.html", label: "index.html" },
+                        { id: "manifest.json", label: "manifest.json" },
+                      ],
+                    },
+                    { id: "package.json", label: "package.json" },
+                    { id: "README.md", label: "README.md" },
+                    { id: "tsconfig.json", label: "tsconfig.json" },
+                  ];
+                  return (
+                    <Box sx={{ minHeight: 400, minWidth: 350 }}>
+                      <RichTreeView
+                        items={FILE_EXPLORER_DATA}
+                        defaultExpandedItems={["src", "components", "theme"]}
+                        slots={{
+                          collapseIcon: ExpandMoreIcon,
+                          expandIcon: ChevronRightIcon,
+                          endIcon: () => <div style={{ width: 20 }} />,
+                        }}
+                      />
+                    </Box>
+                  );
+                })()}
+              </Box>
+              <Divider sx={{ my: 3 }} />
+              <Box sx={{ mb: 4 }}>
+                <Typography variant="h6" gutterBottom>
+                  Tree View with Controlled Expansion
+                </Typography>
+                <Stack spacing={2}>
+                  <Box>
+                    <Button
+                      onClick={() => {
+                        setExpandedTreeItems((oldExpanded) =>
+                          oldExpanded.length === 0 ? ["1", "5", "6", "7"] : [],
+                        );
+                      }}
+                    >
+                      {expandedTreeItems.length === 0
+                        ? "Expand all"
+                        : "Collapse all"}
+                    </Button>
+                  </Box>
+                  <Box sx={{ minHeight: 270, minWidth: 300 }}>
+                    <SimpleTreeView
+                      slots={{
+                        collapseIcon: ExpandMoreIcon,
+                        expandIcon: ChevronRightIcon,
+                      }}
+                      expandedItems={expandedTreeItems}
+                      onExpandedItemsChange={(_event, nodeIds) => {
+                        setExpandedTreeItems(nodeIds);
+                      }}
+                    >
+                      <TreeItem itemId="1" label="Applications">
+                        <TreeItem itemId="2" label="Calendar" />
+                        <TreeItem itemId="3" label="Chrome" />
+                        <TreeItem itemId="4" label="Webstorm" />
+                      </TreeItem>
+                      <TreeItem itemId="5" label="Documents">
+                        <TreeItem itemId="6" label="Material UI">
+                          <TreeItem itemId="7" label="src">
+                            <TreeItem itemId="8" label="index.js" />
+                            <TreeItem itemId="9" label="tree-view.js" />
+                          </TreeItem>
+                        </TreeItem>
+                      </TreeItem>
+                    </SimpleTreeView>
+                  </Box>
+                </Stack>
+              </Box>
+              <Divider sx={{ my: 3 }} />
+              <Box sx={{ mb: 4 }}>
+                <Typography variant="h6" gutterBottom>
+                  Tree View with Custom Styling
+                </Typography>
+                <Box sx={{ minHeight: 300, minWidth: 350 }}>
+                  <SimpleTreeView
+                    slots={{
+                      collapseIcon: ExpandMoreIcon,
+                      expandIcon: ChevronRightIcon,
+                    }}
+                    sx={{
+                      "& .MuiTreeItem-content": {
+                        "&:hover": {
+                          backgroundColor: "action.hover",
+                        },
+                        "&.Mui-selected": {
+                          backgroundColor: "primary.lighter",
+                          "&:hover": {
+                            backgroundColor: "primary.light",
+                          },
+                        },
+                      },
+                    }}
+                  >
+                    <TreeItem itemId="styled-1" label="Node 1">
+                      <TreeItem itemId="styled-2" label="Child 1" />
+                      <TreeItem itemId="styled-3" label="Child 2">
+                        <TreeItem itemId="styled-4" label="Grandchild 1" />
+                        <TreeItem itemId="styled-5" label="Grandchild 2" />
+                      </TreeItem>
+                      <TreeItem itemId="styled-6" label="Child 3" />
+                    </TreeItem>
+                    <TreeItem itemId="styled-7" label="Node 2">
+                      <TreeItem itemId="styled-8" label="Child 4" />
+                      <TreeItem itemId="styled-9" label="Child 5" />
+                    </TreeItem>
+                  </SimpleTreeView>
                 </Box>
               </Box>
             </Box>

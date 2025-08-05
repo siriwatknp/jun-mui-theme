@@ -42,17 +42,17 @@ export const dataGridTheme: ThemeOptions["components"] = {
       columnSeparator: ({ theme }) => ({
         color: (theme.vars || theme).palette.divider,
       }),
-      menuIconButton: ({ theme }) => ({
+      menuIconButton: {
         opacity: 0.5,
         "&:hover": {
           opacity: 1,
         },
-      }),
-      iconButtonContainer: ({ theme }) => ({
+      },
+      iconButtonContainer: {
         "& .MuiIconButton-root": {
           padding: 4,
         },
-      }),
+      },
       row: ({ theme }) => ({
         "&:hover": {
           backgroundColor: (theme.vars || theme).palette.action.hover,
@@ -68,12 +68,12 @@ export const dataGridTheme: ThemeOptions["components"] = {
         borderTop: `1px solid ${(theme.vars || theme).palette.divider}`,
         minHeight: 52,
       }),
-      checkboxInput: ({ theme }) => ({
+      checkboxInput: {
         padding: 4,
-      }),
-      columnHeaderTitle: ({ theme }) => ({
+      },
+      columnHeaderTitle: {
         fontWeight: 600,
-      }),
+      },
       toolbarContainer: ({ theme }) => ({
         padding: "16px",
         gap: 16,
@@ -95,9 +95,9 @@ export const dataGridTheme: ThemeOptions["components"] = {
           },
         },
       },
-      overlayWrapper: ({ theme }) => ({
+      overlayWrapper: {
         minHeight: 240,
-      }),
+      },
       overlay: ({ theme }) => ({
         backgroundColor: "rgba(255, 255, 255, 0.9)",
         ...theme.applyStyles("dark", {

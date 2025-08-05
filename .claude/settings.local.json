@@ -5,11 +5,11 @@
       "mcp__browser-tools__takeScreenshot",
       "Bash(git add:*)",
       "Bash(git rm:*)",
-      "WebFetch(domain:developer.apple.com)"
+      "WebFetch(domain:developer.apple.com)",
+      "mcp__mui-mcp__useMuiDocs",
+      "mcp__mui-mcp__fetchDocs"
     ]
   },
   "enableAllProjectMcpServers": true,
-  "enabledMcpjsonServers": [
-    "browser-tools"
-  ]
+  "enabledMcpjsonServers": ["browser-tools"]
 }

@@ -3,11 +3,42 @@ import type { ThemeOptions } from "@mui/material/styles";
 export const buttonTheme: ThemeOptions["components"] = {
   MuiButtonBase: {
     styleOverrides: {
-      root: {
+      root: ({ theme }) => ({
         "&& .MuiTouchRipple-child": {
           background: "color-mix(in oklch, currentColor, transparent 60%)",
         },
-      },
+        "--Icon-color": "color-mix(in oklch, currentColor, transparent 12%)",
+        "--Icon-size": "1lh",
+        ...theme.applyStyles("dark", {
+          "--Icon-color": "color-mix(in oklch, currentColor, transparent 30%)",
+        }),
+        "&:hover": {
+          "--Icon-color": "currentColor",
+        },
+      }),
+    },
+  },
+  MuiIconButton: {
+    styleOverrides: {
+      root: ({ theme }) => ({
+        variants: [
+          {
+            props: { size: "medium" },
+            style: {
+              fontSize: "inherit",
+              lineHeight: "inherit",
+            },
+          },
+          {
+            props: { color: "default" },
+            style: {
+              "&:hover, &:focus-visible": {
+                color: (theme.vars || theme).palette.text.primary,
+              },
+            },
+          },
+        ],
+      }),
     },
   },
   MuiButton: {
@@ -27,6 +58,7 @@ export const buttonTheme: ThemeOptions["components"] = {
         // When button contains only an icon (with or without TouchRipple)
         "&:has(> svg:first-of-type):not(:has(> :not(svg):not(.MuiTouchRipple-root)))":
           {
+            "--Icon-color": "currentColor",
             "&.MuiButton-sizeSmall": {
               padding: "4px",
               minWidth: "28px",
