@@ -66,15 +66,9 @@ export const textFieldTheme: ThemeOptions["components"] = {
   MuiInputBase: {
     styleOverrides: {
       root: ({ theme }) => ({
-        fontSize: theme.typography.body2.fontSize,
-        variants: [
-          {
-            props: { size: "small" },
-            style: {
-              fontSize: theme.typography.body2.fontSize,
-            },
-          },
-        ],
+        [theme.breakpoints.up(768)]: {
+          fontSize: theme.typography.body2.fontSize,
+        },
       }),
       input: () => ({
         padding: "8px 12px",
@@ -267,7 +261,7 @@ export const textFieldTheme: ThemeOptions["components"] = {
     styleOverrides: {
       root: ({ theme }) => ({
         marginTop: 4,
-        fontSize: theme.typography.caption.fontSize,
+        lineHeight: "calc(20/12)",
         "&.Mui-error": {
           color: (theme.vars || theme).palette.error.text,
         },

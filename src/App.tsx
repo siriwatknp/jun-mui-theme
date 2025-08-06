@@ -3406,6 +3406,9 @@ function App() {
                       right: 8,
                       top: 8,
                       color: "primary.contrastText",
+                      "&:hover": {
+                        color: "primary.contrastText",
+                      },
                     }}
                   >
                     <CloseIcon />

@@ -21,6 +21,9 @@ export const buttonTheme: ThemeOptions["components"] = {
   MuiIconButton: {
     styleOverrides: {
       root: ({ theme }) => ({
+        "&:active": {
+          transform: "scale(0.98)",
+        },
         variants: [
           {
             props: { size: "medium" },
@@ -49,6 +52,9 @@ export const buttonTheme: ThemeOptions["components"] = {
       root: ({ theme }) => ({
         minWidth: "unset",
         textTransform: "capitalize",
+        "&:active": {
+          transform: "scale(0.98)",
+        },
         "@media (hover: hover)": {
           "&:disabled": {
             pointerEvents: "auto",

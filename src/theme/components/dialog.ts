@@ -36,19 +36,25 @@ export const dialogTheme: ThemeOptions["components"] = {
       root: {
         padding: "0 var(--_spacing-col) var(--_spacing-row)",
       },
-      dividers: {
+      dividers: ({ theme }) => ({
         padding: "var(--_spacing-row) var(--_spacing-col)",
         borderTop: "1px solid",
         borderBottom: "1px solid",
-        borderColor: "divider",
-      },
+        borderColor: (theme.vars || theme).palette.divider,
+      }),
     },
   },
   MuiDialogActions: {
+    defaultProps: {
+      disableSpacing: true,
+    },
     styleOverrides: {
       root: {
         padding: "0px var(--_spacing-col) var(--_spacing-row)",
         gap: 8,
+        ".MuiDialogContent-dividers + &": {
+          paddingTop: "var(--_spacing-row)",
+        },
       },
     },
   },
